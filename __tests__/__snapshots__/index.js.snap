@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Components Direction renders path 1`] = `
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=testSize&scale=1&format=png&maptype=roadmap&path=weight:5%7Cenc:test"
+/>
+`;
+
 exports[`Components It renders an image with default props 1`] = `
 <img
   src="https://maps.googleapis.com/maps/api/staticmap?size=test&scale=1&format=png&maptype=roadmap&markers=size:normal%7Clocation"

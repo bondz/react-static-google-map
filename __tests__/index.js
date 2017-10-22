@@ -103,4 +103,70 @@ describe('Components', () => {
       done();
     });
   });
+
+  test('Direction renders path', done => {
+    const testStrategy = jest.fn(data => Promise.resolve('test'));
+
+    const wrapper = mount(
+      <StaticGoogleMap size="testSize">
+        <Direction
+          origin="testOrigin"
+          destination="testDestination"
+          requestStrategy={testStrategy}
+        />
+      </StaticGoogleMap>
+    );
+
+    setTimeout(() => {
+      wrapper.update();
+      const node = wrapper.getDOMNode();
+      const link = node.getAttribute('src');
+      expect(link).toContain('enc:test');
+      expect(link).toContain('path=');
+      expect(node).toMatchSnapshot();
+      done();
+    });
+  });
+
+  test('Direction sends parent apiKey', () => {
+    const testStrategy = jest.fn(data => Promise.resolve('test'));
+    const apiKey = 'parentAPIKey';
+
+    const wrapper = mount(
+      <StaticGoogleMap size="testSize" apiKey={apiKey}>
+        <Direction
+          origin="testOrigin"
+          destination="testDestination"
+          requestStrategy={testStrategy}
+        />
+      </StaticGoogleMap>
+    );
+
+    expect(testStrategy).toHaveBeenCalledTimes(1);
+    expect(testStrategy.mock.calls[0][0].key).toBe(apiKey);
+  });
+
+  test('A span is rendered if image geneation failed', done => {
+    const testStrategy = jest.fn(data => Promise.reject('test'));
+
+    const wrapper = mount(
+      <StaticGoogleMap size="testSize">
+        <Direction
+          origin="testOrigin"
+          destination="testDestination"
+          requestStrategy={testStrategy}
+        />
+      </StaticGoogleMap>
+    );
+
+    expect(testStrategy).toHaveBeenCalledTimes(1);
+
+    setTimeout(() => {
+      wrapper.update();
+      const node = wrapper.getDOMNode();
+      expect(node.localName).toBe('span');
+      expect(node.textContent).toBe('Image generation failed.');
+      done();
+    });
+  });
 });
