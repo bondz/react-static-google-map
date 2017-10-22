@@ -29,7 +29,7 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   invariant(destination, 'Destination prop is required');
 
   // Use the parent's API key if one isn't set here.
-  const key = apiKey ? apiKey : parentProps.apiKey;
+  const key = apiKey ? apiKey : parentProps ? parentProps.apiKey : '';
 
   const data = {
     key,
