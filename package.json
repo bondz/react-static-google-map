@@ -1,6 +1,6 @@
 {
   "name": "react-static-google-map",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "dist/react-static-google-map.cjs.js",
   "module": "dist/react-static-google-map.esm.js",
   "browser": "dist/react-static-google-map.umd.js",
