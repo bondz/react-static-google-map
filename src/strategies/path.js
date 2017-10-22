@@ -4,7 +4,7 @@ import invariant from 'invariant';
 const pathStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   const { weight, color, fillcolor, geodesic, points } = props;
 
-  invariant(points, 'Path expects a valid point prop');
+  invariant(points, 'Path expects a valid points prop');
 
   const urlParts = [];
   // Todo: Remove the property if the defaultProp and Prop value is the same
