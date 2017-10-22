@@ -118,6 +118,60 @@ Async.propTypes = {
   promise: PropTypes.object // promise itself
 };
 
+/**
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+'use strict';
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var NODE_ENV = process.env.NODE_ENV;
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+var invariant_1 = invariant;
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -402,9 +456,7 @@ var markerStrategy = function markerStrategy(_ref, parentProps) {
       location = props.location;
 
 
-  if (!location) {
-    throw Error('Specify a valid location');
-  }
+  invariant_1(location, 'Marker expects a valid location prop');
 
   var urlParts = [];
 
@@ -433,9 +485,7 @@ var pathStrategy = function pathStrategy(_ref, parentProps) {
       points = props.points;
 
 
-  if (!points) {
-    throw new Error('Specify a point prop');
-  }
+  invariant_1(points, 'Path expects a valid points prop');
 
   var urlParts = [];
   // Todo: Remove the property if the defaultProp and Prop value is the same
@@ -531,6 +581,43 @@ function nativeStrategy(data) {
   });
 }
 
+function fetchStrategy(data) {
+  var baseURL = data.baseURL,
+      key = data.key,
+      origin = data.origin,
+      destination = data.destination;
+
+
+  var options = {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'default'
+  };
+
+  var originLocation = void 0;
+  var destinationLocation = void 0;
+
+  if ((typeof origin === 'undefined' ? 'undefined' : _typeof(origin)) === 'object' && origin.lat && origin.lng) {
+    originLocation = origin.lat + ',' + origin.lng;
+  } else {
+    originLocation = origin;
+  }
+
+  if ((typeof destination === 'undefined' ? 'undefined' : _typeof(destination)) === 'object' && destination.lat && destination.lng) {
+    destinationLocation = destination.lat + ',' + destination.lng;
+  } else {
+    destinationLocation = destination;
+  }
+
+  var URL = baseURL + '?origin=' + originLocation + '&destination=' + destinationLocation + '&key=' + key;
+
+  return fetch(URL, options).then(function (res) {
+    return res.json();
+  }).then(function (res) {
+    return res.routes[0].overview_polyline.points;
+  });
+}
+
 var directionStrategy = function directionStrategy(_ref, parentProps) {
   var props = _ref.props,
       defaultProps = _ref.type.defaultProps;
@@ -550,9 +637,12 @@ var directionStrategy = function directionStrategy(_ref, parentProps) {
       geodesic = props.geodesic,
       rest = objectWithoutProperties(props, ['baseURL', 'requestStrategy', 'origin', 'destination', 'apiKey', 'waypoints', 'avoid', 'mode', 'transitMode', 'transitRoutingPreference', 'weight', 'color', 'fillcolor', 'geodesic']);
 
-  // Use the parent's API key if one isn't set here.
 
-  var key = apiKey ? apiKey : parentProps.apiKey;
+  invariant_1(origin, 'Origin prop is required');
+  invariant_1(destination, 'Destination prop is required');
+
+  // Use the parent's API key if one isn't set here.
+  var key = apiKey ? apiKey : parentProps ? parentProps.apiKey : '';
 
   var data = _extends({
     key: key,
@@ -576,10 +666,7 @@ var directionStrategy = function directionStrategy(_ref, parentProps) {
         pathPromise = nativeStrategy(data);
         break;
       case 'fetch':
-        pathPromise = FetchStrategy(data);
-        break;
-      case 'test':
-        pathPromise = Promise.resolve('test');
+        pathPromise = fetchStrategy(data);
         break;
       default:
         throw new Error('Specify a Request strategy to get directions from');
@@ -690,25 +777,32 @@ var StaticGoogleMap = function (_Component) {
           componentProps = objectWithoutProperties(props, ['rootURL', 'size', 'zoom', 'scale', 'style', 'center', 'format', 'client', 'region', 'visible', 'channel', 'maptype', 'language', 'signature', 'apiKey']);
 
 
-      var componentUrlParts = this.buildParts(children, props);
+      invariant_1(size, 'size property is not set');
+      invariant_1(children, 'Component must have `Marker`, `Path` or `Direction` child');
 
-      var mapParts = MapStrategy(props);
+      var childrenUrlParts = this.buildParts(children, props) || [];
+      var mainUrlParts = MapStrategy(props);
 
-      var urlParts = Promise.all(componentUrlParts).then(function (parts) {
-        return mapParts + '&' + parts.join('&');
+      var urlParts = Promise.all(childrenUrlParts).then(function (parts) {
+        return mainUrlParts + '&' + parts.filter(function (part) {
+          return part;
+        }).join('&');
       });
 
       return React__default.createElement(Async, {
         promise: urlParts,
         then: function then(URL) {
+          if (onGenerate) {
+            onGenerate(URL);
+          }
+
           return React__default.createElement(Component$$1, _extends({}, componentProps, { src: URL }));
         },
         'catch': function _catch(err) {
-          return React__default.createElement(
+          return console.error(err), React__default.createElement(
             'span',
             null,
-            'Image generation failed with err ',
-            err
+            'Image generation failed.'
           );
         }
       });
@@ -766,7 +860,7 @@ var propTypes$1 = {
   color: PropTypes.string,
   fillcolor: PropTypes.string,
   geodesic: PropTypes.bool,
-  points: PropTypes.any
+  points: PropTypes.any.isRequired
 };
 
 var groupPropTypes$1 = {
@@ -797,8 +891,8 @@ Path.Group = PathGroup;
 
 var propTypes$2 = {
   baseURL: PropTypes.string,
-  origin: PropTypes.string,
-  destination: PropTypes.string,
+  origin: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
   apiKey: PropTypes.string,
   waypoints: PropTypes.any,
 
@@ -806,7 +900,7 @@ var propTypes$2 = {
   mode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
   transitMode: PropTypes.oneOf(['bus', 'subway', 'train', 'tram', 'rail']),
   transitRoutingPreference: PropTypes.oneOf(['less_walking', 'fewer_transfers']),
-  requestStrategy: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['fetch', 'native', 'test'])]).isRequired,
+  requestStrategy: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['fetch', 'native'])]).isRequired,
 
   weight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
