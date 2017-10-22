@@ -408,10 +408,10 @@ function nativeStrategy(data) {
     DirectionsService.route({
       origin: originLocation,
       destination: destinationLocation,
-      travelMode: mode
+      travelMode: mode.toUpperCase()
     }, function (result, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        resolve(result.routes[0].overview_polyline.points);
+        resolve(result.routes[0].overview_polyline);
       }
 
       reject(status);
