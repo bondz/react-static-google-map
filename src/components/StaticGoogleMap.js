@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Async from 'react-promise';
+import invariant from 'invariant';
 
 import MarkerStrategy from '../strategies/marker';
 import PathStrategy from '../strategies/path';
@@ -90,19 +91,32 @@ class StaticGoogleMap extends Component {
       ...componentProps
     } = props;
 
-    const componentUrlParts = this.buildParts(children, props);
+    invariant(size, 'size property is not set');
+    invariant(
+      children,
+      'Component must have `Marker`, `Path` or `Direction` child'
+    );
 
-    const mapParts = MapStrategy(props);
+    const childrenUrlParts = this.buildParts(children, props) || [];
+    const mainUrlParts = MapStrategy(props);
 
-    const urlParts = Promise.all(componentUrlParts).then(
-      parts => `${mapParts}&${parts.join('&')}`
+    const urlParts = Promise.all(childrenUrlParts).then(
+      parts => `${mainUrlParts}&${parts.filter(part => part).join('&')}`
     );
 
     return (
       <Async
         promise={urlParts}
-        then={URL => <Component {...componentProps} src={URL} />}
-        catch={err => <span>Image generation failed with err {err}</span>}
+        then={URL => {
+          if (onGenerate) {
+            onGenerate(URL);
+          }
+
+          return <Component {...componentProps} src={URL} />;
+        }}
+        catch={err => (
+          console.error(err), <span>Image generation failed.</span>
+        )}
       />
     );
   }
