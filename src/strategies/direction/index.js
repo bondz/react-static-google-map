@@ -1,5 +1,6 @@
 import PathStrategy from '../path';
 import NativeStrategy from './nativeStrategy';
+import FetchStrategy from './fetchStrategy';
 
 const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   const {
@@ -50,9 +51,6 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
       case 'fetch':
         pathPromise = FetchStrategy(data);
         break;
-      case 'test':
-        pathPromise = Promise.resolve('test');
-        break;
       default:
         throw new Error('Specify a Request strategy to get directions from');
     }
@@ -67,5 +65,3 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
 };
 
 export default directionStrategy;
-
-// const baseUrL = 'https://maps.googleapis.com/maps/api/directions/json';
