@@ -28,3 +28,5 @@ function fetchStrategy(data) {
     .then(res => res.json())
     .then(res => res.routes[0].overview_polyline.points);
 }
+
+export default fetchStrategy
