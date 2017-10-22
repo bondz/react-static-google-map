@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Marker Strategy Marker group passes on all props from children except location 1`] = `"markers=size:tiny%7Ccolor:blue%7Clabel:G%7Canchor:topleft%7Cicon:testIcon%7Cmarker1%7Cmarker2%7Cmarker3"`;
+
+exports[`Marker Strategy it parses valid marker props 1`] = `"markers=size:tiny%7Ccolor:red%7Clabel:P%7Canchor:topleft%7Cicon:testIcon%7CtestLocation"`;
+
+exports[`Path Strategy it parses valid point props 1`] = `"path=color:blue%7Cweight:3%7Cfillcolor:red%7Cgeodesic:true%7Ctest1"`;
