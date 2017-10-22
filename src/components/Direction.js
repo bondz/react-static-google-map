@@ -17,7 +17,7 @@ const propTypes = {
   ]),
   requestStrategy: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.oneOf(['fetch', 'native', 'test']),
+    PropTypes.oneOf(['fetch', 'native']),
   ]).isRequired,
 
   weight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
