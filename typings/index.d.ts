@@ -13,7 +13,7 @@ interface GoogleMapImageProps {
      *
      * @memberof GoogleMapImageProps
      */
-  onGenerate?: (e: Event, url: string) => void;
+  onGenerate?: (url: string) => void;
 
   /**
      * The dimensions of the image in pixels
