@@ -6,7 +6,7 @@ const propTypes = {
   color: PropTypes.string,
   fillcolor: PropTypes.string,
   geodesic: PropTypes.bool,
-  points: PropTypes.any,
+  points: PropTypes.any.isRequired,
 };
 
 const groupPropTypes = {
