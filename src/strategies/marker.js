@@ -1,11 +1,10 @@
 import { urlBuilder, locationBuilder } from './utils';
+import invariant from 'invariant';
 
 const markerStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   const { size, color, label, anchor, iconURL, location } = props;
 
-  if (!location) {
-    throw Error('Specify a valid location');
-  }
+  invariant(location, 'Marker expects a valid location prop');
 
   let urlParts = [];
 
