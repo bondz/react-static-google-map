@@ -1,3 +1,5 @@
+import invariant from 'invariant';
+
 import PathStrategy from '../path';
 import NativeStrategy from './nativeStrategy';
 import FetchStrategy from './fetchStrategy';
@@ -22,6 +24,9 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
 
     ...rest
   } = props;
+
+  invariant(origin, 'Origin prop is required');
+  invariant(destination, 'Destination prop is required');
 
   // Use the parent's API key if one isn't set here.
   const key = apiKey ? apiKey : parentProps.apiKey;

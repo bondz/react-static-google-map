@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   baseURL: PropTypes.string,
-  origin: PropTypes.string,
-  destination: PropTypes.string,
+  origin: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
   apiKey: PropTypes.string,
   waypoints: PropTypes.any,
 
