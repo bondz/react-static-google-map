@@ -38,6 +38,6 @@ export default [
         exclude: ['node_modules/**'],
       }),
     ],
-    external: ['react', 'prop-types', 'react-promise'],
+    external: ['react', 'prop-types', 'react-promise', 'invariant'],
   },
 ];
