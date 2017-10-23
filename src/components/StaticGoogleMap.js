@@ -61,7 +61,7 @@ class StaticGoogleMap extends Component {
         case 'Path':
           return PathStrategy(Child, props);
         case 'PathGroup':
-          return PathGroupStrategy(child, props);
+          return PathGroupStrategy(Child, props);
         case 'Direction':
           return DirectionStrategy(Child, props);
         default:
