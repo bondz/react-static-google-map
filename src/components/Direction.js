@@ -28,7 +28,7 @@ const propTypes = {
 
 const defaultProps = {
   baseURL: 'https://maps.googleapis.com/maps/api/directions/json',
-  mode: 'driving',
+  travelMode: 'driving',
   requestStrategy: 'native',
 
   weight: 5,
