@@ -13,7 +13,7 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
     apiKey,
     waypoints,
     avoid,
-    mode,
+    travelMode,
     transitMode,
     transitRoutingPreference,
 
@@ -38,7 +38,7 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
     destination,
     waypoints,
     avoid,
-    mode,
+    travelMode,
     transitMode,
     transitRoutingPreference,
     ...rest,

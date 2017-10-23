@@ -189,7 +189,7 @@ interface Direction extends PathGroup {
   apiKey: string;
   waypoints: any;
   avoid: 'tolls' | 'highways' | 'ferries' | 'indoor';
-  mode: 'driving' | 'walking' | 'bicycling' | 'transit';
+  travelMode: 'driving' | 'walking' | 'bicycling' | 'transit';
   transitMode: 'bus' | 'subway' | 'train' | 'tram' | 'rail';
   transitRoutingPreference: 'less_walking' | 'fewer_transfers';
   requestStrategy: 'fetch' | 'native' | RequestStrategy;

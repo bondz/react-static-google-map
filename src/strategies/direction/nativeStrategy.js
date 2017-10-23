@@ -1,5 +1,5 @@
 function nativeStrategy(data) {
-  const { origin, destination, mode } = data;
+  const { origin, destination, travelMode } = data;
 
   let originLocation;
   let destinationLocation;
@@ -22,7 +22,7 @@ function nativeStrategy(data) {
       {
         origin: originLocation,
         destination: destinationLocation,
-        travelMode: mode.toUpperCase(),
+        travelMode: travelMode.toUpperCase(),
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {

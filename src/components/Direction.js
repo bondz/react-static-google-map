@@ -9,7 +9,7 @@ const propTypes = {
   waypoints: PropTypes.any,
 
   avoid: PropTypes.string,
-  mode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
+  travelMode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
   transitMode: PropTypes.oneOf(['bus', 'subway', 'train', 'tram', 'rail']),
   transitRoutingPreference: PropTypes.oneOf([
     'less_walking',
