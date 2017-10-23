@@ -574,7 +574,7 @@ var StaticGoogleMap = function (_Component) {
           case 'Path':
             return pathStrategy(Child, props);
           case 'PathGroup':
-            return pathGroupStrategy(child, props);
+            return pathGroupStrategy(Child, props);
           case 'Direction':
             return directionStrategy(Child, props);
           default:
