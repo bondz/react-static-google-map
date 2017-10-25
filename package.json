@@ -10,6 +10,11 @@
   },
   "author": "Akinmade Bond <bond@max.ng>",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "static google map",
+    "google map"
+  ],
   "dependencies": {
     "invariant": "^2.2.2",
     "react": ">=0.14.x",
