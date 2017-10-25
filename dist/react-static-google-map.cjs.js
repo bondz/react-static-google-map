@@ -385,7 +385,7 @@ var pathGroupStrategy = function pathGroupStrategy(_ref, parentProps) {
 function nativeStrategy(data) {
   var origin = data.origin,
       destination = data.destination,
-      mode = data.mode;
+      travelMode = data.travelMode;
 
 
   var originLocation = void 0;
@@ -408,7 +408,7 @@ function nativeStrategy(data) {
     DirectionsService.route({
       origin: originLocation,
       destination: destinationLocation,
-      travelMode: mode.toUpperCase()
+      travelMode: travelMode.toUpperCase()
     }, function (result, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         resolve(result.routes[0].overview_polyline);
@@ -466,14 +466,14 @@ var directionStrategy = function directionStrategy(_ref, parentProps) {
       apiKey = props.apiKey,
       waypoints = props.waypoints,
       avoid = props.avoid,
-      mode = props.mode,
+      travelMode = props.travelMode,
       transitMode = props.transitMode,
       transitRoutingPreference = props.transitRoutingPreference,
       weight = props.weight,
       color = props.color,
       fillcolor = props.fillcolor,
       geodesic = props.geodesic,
-      rest = objectWithoutProperties(props, ['baseURL', 'requestStrategy', 'origin', 'destination', 'apiKey', 'waypoints', 'avoid', 'mode', 'transitMode', 'transitRoutingPreference', 'weight', 'color', 'fillcolor', 'geodesic']);
+      rest = objectWithoutProperties(props, ['baseURL', 'requestStrategy', 'origin', 'destination', 'apiKey', 'waypoints', 'avoid', 'travelMode', 'transitMode', 'transitRoutingPreference', 'weight', 'color', 'fillcolor', 'geodesic']);
 
 
   invariant(origin, 'Origin prop is required');
@@ -489,7 +489,7 @@ var directionStrategy = function directionStrategy(_ref, parentProps) {
     destination: destination,
     waypoints: waypoints,
     avoid: avoid,
-    mode: mode,
+    travelMode: travelMode,
     transitMode: transitMode,
     transitRoutingPreference: transitRoutingPreference
   }, rest);
@@ -735,7 +735,7 @@ var propTypes$2 = {
   waypoints: PropTypes.any,
 
   avoid: PropTypes.string,
-  mode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
+  travelMode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
   transitMode: PropTypes.oneOf(['bus', 'subway', 'train', 'tram', 'rail']),
   transitRoutingPreference: PropTypes.oneOf(['less_walking', 'fewer_transfers']),
   requestStrategy: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['fetch', 'native'])]).isRequired,
@@ -748,7 +748,7 @@ var propTypes$2 = {
 
 var defaultProps$2 = {
   baseURL: 'https://maps.googleapis.com/maps/api/directions/json',
-  mode: 'driving',
+  travelMode: 'driving',
   requestStrategy: 'native',
 
   weight: 5,
