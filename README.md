@@ -1,8 +1,23 @@
-# react-static-google-map
+# react static google map
+
+<p align="center">
+  <a href="https://circleci.com/gh/bondz/react-static-google-map/tree/master">
+    <img src="https://circleci.com/gh/bondz/react-static-google-map/tree/master.svg?style=shield" alt="build status">
+  </a>
+  <a href="https://www.npmjs.com/package/react-static-google-map">
+    <img src="https://img.shields.io/npm/v/react-static-google-map.svg" alt="npm version">
+  </a>
+  <a href="https://github.com/bondz/react-static-google-map/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/npm/l/react-static-google-map.svg" alt="license">
+  </a>
+  <a href="https://snyk.io/test/github/bondz/react-static-google-map">
+    <img src="https://snyk.io/test/github/bondz/react-static-google-map/badge.svg" alt="Vulnerability status">
+  </a>
+</p>
+
+## Overview
 
 Show Google Map static images the React way.
-
-## Install
 
 ```
 yarn add react-static-google-map
