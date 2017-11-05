@@ -46,7 +46,7 @@ describe('Components', () => {
     });
   });
 
-  test.skip('It renders composite child elements', done => {
+  test('It renders composite child elements', done => {
     const RedMarker = ({ color, ...props }) => (
       <Marker color="red" {...props} />
     );
