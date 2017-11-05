@@ -24,3 +24,25 @@ export function locationBuilder(location) {
 
   return urlParts.join('%7C'); // |
 }
+
+export function isStatelessComponent(component) {
+  return (
+    !component.render && !(component.prototype && component.prototype.render)
+  );
+}
+
+export function isClassComponent(component) {
+  return Boolean(
+    component &&
+      component.prototype.isReactComponent &&
+      component.prototype.render
+  );
+}
+
+export function renderStatelessComponent(component, props) {
+  return component(props);
+}
+
+export function renderClassComponent(component, props) {
+  return new component(props).render();
+}
