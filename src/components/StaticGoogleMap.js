@@ -9,6 +9,12 @@ import MarkerGroupStrategy from '../strategies/markergroup';
 import PathGroupStrategy from '../strategies/pathgroup';
 import DirectionStrategy from '../strategies/direction/index';
 import MapStrategy from '../strategies/map';
+import {
+  isStatelessComponent,
+  renderStatelessComponent,
+  isClassComponent,
+  renderClassComponent,
+} from '../strategies/utils';
 
 class StaticGoogleMap extends Component {
   static propTypes = {
@@ -52,19 +58,39 @@ class StaticGoogleMap extends Component {
   };
 
   buildParts(children, props) {
-    return React.Children.map(children, Child => {
-      switch (Child.type.name) {
+    return React.Children.map(children, child => {
+      if (!React.isValidElement(child)) {
+        return null;
+      }
+
+      switch (child.type.name) {
         case 'Marker':
-          return MarkerStrategy(Child, props);
+          return MarkerStrategy(child, props);
         case 'MarkerGroup':
-          return MarkerGroupStrategy(Child, props);
+          return MarkerGroupStrategy(child, props);
         case 'Path':
-          return PathStrategy(Child, props);
+          return PathStrategy(child, props);
         case 'PathGroup':
-          return PathGroupStrategy(Child, props);
+          return PathGroupStrategy(child, props);
         case 'Direction':
-          return DirectionStrategy(Child, props);
+          return DirectionStrategy(child, props);
         default:
+          const componentType = child.type;
+
+          if (isStatelessComponent(componentType)) {
+            return this.buildParts(
+              renderStatelessComponent(componentType, { ...child.props }),
+              props
+            );
+          }
+
+          if (isClassComponent(componentType)) {
+            return this.buildParts(
+              renderClassComponent(componentType, { ...child.props }),
+              props
+            );
+          }
+
           return null;
       }
     });
