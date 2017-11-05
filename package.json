@@ -9,12 +9,9 @@
     "url": "git@github.com:bondz/react-static-google-map.git"
   },
   "author": "Akinmade Bond <bond@max.ng>",
+  "typings": "./typings/index.d.ts",
   "license": "MIT",
-  "keywords": [
-    "react",
-    "static google map",
-    "google map"
-  ],
+  "keywords": ["react", "static google map", "google map"],
   "dependencies": {
     "invariant": "^2.2.2",
     "react": ">=0.14.x",
@@ -47,12 +44,8 @@
     "test": "jest",
     "prepublish": "yarn build"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "jest": {
-    "setupFiles": [
-      "raf/polyfill"
-    ]
+    "setupFiles": ["raf/polyfill"]
   }
 }
