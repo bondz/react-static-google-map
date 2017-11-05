@@ -284,6 +284,22 @@ function locationBuilder(location) {
   return urlParts.join('%7C'); // |
 }
 
+function isStatelessComponent(component) {
+  return !component.render && !(component.prototype && component.prototype.render);
+}
+
+function isClassComponent(component) {
+  return Boolean(component && component.prototype.isReactComponent && component.prototype.render);
+}
+
+function renderStatelessComponent(component, props) {
+  return component(props);
+}
+
+function renderClassComponent(component, props) {
+  return new component(props).render();
+}
+
 var markerStrategy = function markerStrategy(_ref, parentProps) {
   var props = _ref.props;
   var size = props.size,
@@ -572,19 +588,35 @@ var StaticGoogleMap = function (_Component) {
   createClass(StaticGoogleMap, [{
     key: 'buildParts',
     value: function buildParts(children, props) {
-      return React__default.Children.map(children, function (Child) {
-        switch (Child.type.name) {
+      var _this2 = this;
+
+      return React__default.Children.map(children, function (child) {
+        if (!React__default.isValidElement(child)) {
+          return null;
+        }
+
+        switch (child.type.name) {
           case 'Marker':
-            return markerStrategy(Child, props);
+            return markerStrategy(child, props);
           case 'MarkerGroup':
-            return markerGroupStrategy(Child, props);
+            return markerGroupStrategy(child, props);
           case 'Path':
-            return pathStrategy(Child, props);
+            return pathStrategy(child, props);
           case 'PathGroup':
-            return pathGroupStrategy(Child, props);
+            return pathGroupStrategy(child, props);
           case 'Direction':
-            return directionStrategy(Child, props);
+            return directionStrategy(child, props);
           default:
+            var componentType = child.type;
+
+            if (isStatelessComponent(componentType)) {
+              return _this2.buildParts(renderStatelessComponent(componentType, _extends({}, child.props)), props);
+            }
+
+            if (isClassComponent(componentType)) {
+              return _this2.buildParts(renderClassComponent(componentType, _extends({}, child.props)), props);
+            }
+
             return null;
         }
       });
