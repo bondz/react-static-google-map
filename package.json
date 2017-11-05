@@ -1,6 +1,6 @@
 {
   "name": "react-static-google-map",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "main": "dist/react-static-google-map.cjs.js",
   "module": "dist/react-static-google-map.esm.js",
   "browser": "dist/react-static-google-map.umd.js",
@@ -11,7 +11,11 @@
   "author": "Akinmade Bond <bond@max.ng>",
   "typings": "./typings/index.d.ts",
   "license": "MIT",
-  "keywords": ["react", "static google map", "google map"],
+  "keywords": [
+    "react",
+    "static google map",
+    "google map"
+  ],
   "dependencies": {
     "invariant": "^2.2.2",
     "react": ">=0.14.x",
@@ -44,8 +48,12 @@
     "test": "jest",
     "prepublish": "yarn build"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "jest": {
-    "setupFiles": ["raf/polyfill"]
+    "setupFiles": [
+      "raf/polyfill"
+    ]
   }
 }
