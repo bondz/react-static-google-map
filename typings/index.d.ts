@@ -1,13 +1,13 @@
 import { Component, ReactElement, ReactNode, ReactType } from 'react';
 
 declare class StaticGoogleMap extends Component<
-  StaticGoogleMap.GoogleMapImageProps
+  ReactStaticGoogleMap.GoogleMapImageProps
 > {}
-declare class Marker extends Component<StaticGoogleMap.Marker> {}
-declare class Path extends Component<StaticGoogleMap.Path> {}
-declare class Direction extends Component<StaticGoogleMap.Direction> {}
+declare class Marker extends Component<ReactStaticGoogleMap.Marker> {}
+declare class Path extends Component<ReactStaticGoogleMap.Path> {}
+declare class Direction extends Component<ReactStaticGoogleMap.Direction> {}
 
-declare namespace StaticGoogleMap {
+declare namespace ReactStaticGoogleMap {
   interface GoogleMapImageProps {
     /**
      * Any element that accepts a 'src' attribute
