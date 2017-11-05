@@ -1,11 +1,4 @@
-import { Component, ReactElement, ReactNode, ReactType } from 'react';
-
-declare class StaticGoogleMap extends Component<
-  ReactStaticGoogleMap.GoogleMapImageProps
-> {}
-declare class Marker extends Component<ReactStaticGoogleMap.Marker> {}
-declare class Path extends Component<ReactStaticGoogleMap.Path> {}
-declare class Direction extends Component<ReactStaticGoogleMap.Direction> {}
+import { Component, StatelessComponent } from 'react';
 
 declare namespace ReactStaticGoogleMap {
   interface GoogleMapImageProps {
@@ -170,6 +163,12 @@ declare namespace ReactStaticGoogleMap {
     location: locationType;
   }
 
+  declare const MarkerGroupComponent: StatelessComponent<MarkerGroup>;
+
+  interface MarkerComponent extends StatelessComponent<Marker> {
+    Group: typeof MarkerGroupComponent;
+  }
+
   interface PathGroup {
     weight?: string | number;
     color?:
@@ -191,6 +190,12 @@ declare namespace ReactStaticGoogleMap {
 
   interface Path extends PathGroup {
     points: locationType;
+  }
+
+  declare const PathGroupComponent: StatelessComponent<PathGroup>;
+
+  interface PathComponent extends StatelessComponent<Path> {
+    Group: typeof PathGroupComponent;
   }
 
   interface Direction extends PathGroup {
@@ -220,4 +225,14 @@ declare namespace ReactStaticGoogleMap {
     [index: string]: any;
   }
 }
+
+declare class StaticGoogleMap extends Component<
+  ReactStaticGoogleMap.GoogleMapImageProps,
+  object
+> {}
+
+declare const Marker: ReactStaticGoogleMap.MarkerComponent;
+declare const Path: ReactStaticGoogleMap.PathComponent;
+declare const Direction: StatelessComponent<ReactStaticGoogleMap.Direction>;
+
 export { StaticGoogleMap, Marker, Path, Direction };
