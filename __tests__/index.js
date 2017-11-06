@@ -61,7 +61,7 @@ describe('Components', () => {
       wrapper.update();
       const node = wrapper.getDOMNode();
       expect(node.getAttribute('src').includes('marker')).toBe(true);
-      expect(node.getAttribute('src')).toContain('color=red');
+      expect(node.getAttribute('src')).toContain('color:red');
       done();
     }, 15);
   });
