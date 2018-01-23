@@ -48,7 +48,8 @@
     "prepublish": "yarn build"
   },
   "files": [
-    "dist"
+    "dist",
+    "typings/index.d.ts"
   ],
   "jest": {
     "setupFiles": [
