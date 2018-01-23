@@ -126,6 +126,17 @@ class StaticGoogleMap extends Component {
     const childrenUrlParts = this.buildParts(children, props) || [];
     const mainUrlParts = MapStrategy(props);
 
+    if (Array.isArray(childrenUrlParts)) {
+      const childURL = childrenUrlParts.filter(part => part).join('&');
+      const url = `${mainUrlParts}&${childURL}`;
+
+      if (onGenerate) {
+        onGenerate(url);
+      }
+
+      return <Component {...componentProps} src={url} />;
+    }
+
     const urlParts = Promise.all(childrenUrlParts).then(
       parts => `${mainUrlParts}&${parts.filter(part => part).join('&')}`
     );
