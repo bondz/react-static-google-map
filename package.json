@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git@github.com:bondz/react-static-google-map.git"
   },
+  "side-effects": false,
   "author": "Akinmade Bond <bond@max.ng>",
   "typings": "./typings/index.d.ts",
   "license": "MIT",
@@ -48,7 +49,8 @@
     "prepublish": "yarn build"
   },
   "files": [
-    "dist"
+    "dist",
+    "typings/index.d.ts"
   ],
   "jest": {
     "setupFiles": [

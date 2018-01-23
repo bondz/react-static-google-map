@@ -147,7 +147,7 @@ describe('Components', () => {
     expect(testStrategy.mock.calls[0][0].key).toBe(apiKey);
   });
 
-  test('A span is rendered if image geneation failed', done => {
+  test('A span is rendered if image generation failed', done => {
     const testStrategy = jest.fn(data => Promise.reject('test'));
 
     const wrapper = mount(

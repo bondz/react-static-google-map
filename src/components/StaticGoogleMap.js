@@ -126,6 +126,22 @@ class StaticGoogleMap extends Component {
     const childrenUrlParts = this.buildParts(children, props) || [];
     const mainUrlParts = MapStrategy(props);
 
+    /**
+     * All the parts should return a string if a component that does not return a promise isn't used
+     * The Directions's component returns a promise and would instead use the Async component to render
+     * This allows us render sync otherwise and partially support server side rendering.
+     */
+    if (!childrenUrlParts.some(part => typeof part === 'object')) {
+      const childURL = childrenUrlParts.filter(part => part).join('&');
+      const url = `${mainUrlParts}&${childURL}`;
+
+      if (onGenerate) {
+        onGenerate(url);
+      }
+
+      return <Component {...componentProps} src={url} />;
+    }
+
     const urlParts = Promise.all(childrenUrlParts).then(
       parts => `${mainUrlParts}&${parts.filter(part => part).join('&')}`
     );
