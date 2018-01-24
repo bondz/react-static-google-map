@@ -9,6 +9,9 @@ import MarkerGroupStrategy from '../strategies/markergroup';
 import PathGroupStrategy from '../strategies/pathgroup';
 import DirectionStrategy from '../strategies/direction/index';
 import MapStrategy from '../strategies/map';
+import Marker from './Marker';
+import Path from './Path';
+import Direction from './Direction';
 import {
   isStatelessComponent,
   renderStatelessComponent,
@@ -63,16 +66,16 @@ class StaticGoogleMap extends Component {
         return null;
       }
 
-      switch (child.type.name) {
-        case 'Marker':
+      switch (child.type) {
+        case Marker:
           return MarkerStrategy(child, props);
-        case 'MarkerGroup':
+        case Marker.Group:
           return MarkerGroupStrategy(child, props);
-        case 'Path':
+        case Path:
           return PathStrategy(child, props);
-        case 'PathGroup':
+        case Path.Group:
           return PathGroupStrategy(child, props);
-        case 'Direction':
+        case Direction:
           return DirectionStrategy(child, props);
         default:
           const componentType = child.type;
