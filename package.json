@@ -1,6 +1,6 @@
 {
   "name": "react-static-google-map",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "main": "dist/react-static-google-map.cjs.js",
   "module": "dist/react-static-google-map.esm.js",
   "browser": "dist/react-static-google-map.umd.js",
@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git@github.com:bondz/react-static-google-map.git"
   },
-  "side-effects": false,
+  "sideEffects": false,
   "author": "Akinmade Bond <bond@max.ng>",
   "typings": "./typings/index.d.ts",
   "license": "MIT",
