@@ -163,7 +163,7 @@ declare namespace ReactStaticGoogleMap {
     location: locationType;
   }
 
-  declare const MarkerGroupComponent: StatelessComponent<MarkerGroup>;
+  const MarkerGroupComponent: StatelessComponent<MarkerGroup>;
 
   interface MarkerComponent extends StatelessComponent<Marker> {
     Group: typeof MarkerGroupComponent;
@@ -192,7 +192,7 @@ declare namespace ReactStaticGoogleMap {
     points: locationType;
   }
 
-  declare const PathGroupComponent: StatelessComponent<PathGroup>;
+  const PathGroupComponent: StatelessComponent<PathGroup>;
 
   interface PathComponent extends StatelessComponent<Path> {
     Group: typeof PathGroupComponent;
