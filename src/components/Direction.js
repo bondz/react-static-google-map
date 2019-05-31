@@ -7,6 +7,8 @@ const propTypes = {
   destination: PropTypes.string.isRequired,
   apiKey: PropTypes.string,
   waypoints: PropTypes.any,
+  // cache: PropTypes.object,
+  // onCacheUpdate: PropTypes.func,
 
   avoid: PropTypes.string,
   travelMode: PropTypes.oneOf(['driving', 'walking', 'bicycling', 'transit']),
