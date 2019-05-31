@@ -89,12 +89,12 @@ const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
     }
   }
 
-  return pathPromise.then(path => {
-    return PathStrategy({
+  return pathPromise.then(path =>
+    PathStrategy({
       props: { weight, color, fillcolor, geodesic, points: `enc:${path}` },
       type: { defaultProps },
     })
-  });
+  );
 };
 
 export default directionStrategy;
