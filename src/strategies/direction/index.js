@@ -4,28 +4,22 @@ import PathStrategy from '../path';
 import NativeStrategy from './nativeStrategy';
 import FetchStrategy from './fetchStrategy';
 
-let googleCalls = 0;
-
-const memoize = (func) => {
-  const cache = {};
+export const memoizeDirectionStrategy = (directionStrategy, cache = {}) => {
   return function(){
-    console.log(...arguments)
     const key = JSON.stringify(arguments[0].props);
-    console.log({ key })
     if (cache[key]){
-      console.log('returned from cache')
-      console.log(typeof cache[key])
-      console.log(cache[key])
       return cache[key];
     }
     else{
-      const val = func.apply(null, arguments).then(path => {
+      const val = directionStrategy.apply(null, arguments).then(path => {
         // When this finally resolves, set the value of the cache to
         // the string path result. Subsequent renders will return a string
-        // and use the base compnent instead of the Async component
+        // and use the base component instead of the Async component and
+        // not cause the flash
         cache[key] = path;
-        console.log('After Resolve: ', typeof cache[key])
-        console.log('After Resolve: ', cache[key])
+        if (arguments[1].onCacheUpdate) {
+          arguments[1].onCacheUpdate({ ...cache });
+        }
       });
       // Return the pending promise immedietly and the StaticGoogleMap
       // usage of the Async component will eventually handle it because
@@ -33,15 +27,12 @@ const memoize = (func) => {
       // multiple calls to google on each render, but does not solve the
       // "flash" of the Async component.
       cache[key] = val;
-      console.log('Before Resolve: ', typeof cache[key])
-      console.log('Before Resolve: ', cache[key])
-      console.log('cache set')
       return val;
     }
   }
 }
 
-const directionStrategy = memoize(({ props, type: { defaultProps } }, parentProps) => {
+const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   const {
     baseURL,
     requestStrategy,
@@ -53,8 +44,6 @@ const directionStrategy = memoize(({ props, type: { defaultProps } }, parentProp
     travelMode,
     transitMode,
     transitRoutingPreference,
-    // cache,
-    // onCacheUpdate,
 
     weight,
     color,
@@ -83,20 +72,6 @@ const directionStrategy = memoize(({ props, type: { defaultProps } }, parentProp
     ...rest,
   };
 
-  // let cacheKey;
-
-  // if (cache) {
-  //   cacheKey = JSON.stringify(data);
-  //   const path = cache[cacheKey];
-  //   if (path) {
-  //     console.log('returned from cache')
-  //     return PathStrategy({
-  //       props: { weight, color, fillcolor, geodesic, points: `enc:${path}` },
-  //       type: { defaultProps },
-  //     });
-  //   }
-  // }
-
   let pathPromise;
 
   if (typeof requestStrategy !== 'string') {
@@ -115,20 +90,11 @@ const directionStrategy = memoize(({ props, type: { defaultProps } }, parentProp
   }
 
   return pathPromise.then(path => {
-    googleCalls = googleCalls + 1;
-    console.log(googleCalls)
-    // if (cache && cacheKey) {
-    //   console.log('cache set')
-    //   cache[cacheKey] = path;
-    //   if (onCacheUpdate) {
-    //     onCacheUpdate({ ...cache })
-    //   }
-    // }
     return PathStrategy({
       props: { weight, color, fillcolor, geodesic, points: `enc:${path}` },
       type: { defaultProps },
     })
   });
-});
+};
 
 export default directionStrategy;

@@ -7,7 +7,7 @@ import MarkerStrategy from '../strategies/marker';
 import PathStrategy from '../strategies/path';
 import MarkerGroupStrategy from '../strategies/markergroup';
 import PathGroupStrategy from '../strategies/pathgroup';
-import DirectionStrategy from '../strategies/direction/index';
+import DirectionStrategy, { memoizeDirectionStrategy } from '../strategies/direction/index';
 import MapStrategy from '../strategies/map';
 import Marker from './Marker';
 import Path from './Path';
@@ -24,6 +24,8 @@ class StaticGoogleMap extends Component {
     as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     onGenerate: PropTypes.func,
     rootURL: PropTypes.string,
+    initialCache: PropTypes.object,
+    onCacheUpdate: PropTypes.func,
 
     size: PropTypes.string.isRequired,
     scale: PropTypes.oneOf([1, 2, 4, '1', '2', '4']),
@@ -60,6 +62,11 @@ class StaticGoogleMap extends Component {
     maptype: 'roadmap',
   };
 
+  DirectionStrategy = memoizeDirectionStrategy(
+    DirectionStrategy,
+    { ...this.props.initialCache }
+  );
+
   buildParts(children, props) {
     return React.Children.map(children, child => {
       if (!React.isValidElement(child)) {
@@ -76,7 +83,7 @@ class StaticGoogleMap extends Component {
         case Path.Group:
           return PathGroupStrategy(child, props);
         case Direction:
-          return DirectionStrategy(child, props);
+          return this.DirectionStrategy(child, props);
         default:
           const componentType = child.type;
 
