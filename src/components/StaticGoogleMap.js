@@ -124,6 +124,8 @@ class StaticGoogleMap extends Component {
       language,
       signature,
       apiKey,
+      initialCache,
+      onCacheUpdate,
       ...componentProps
     } = props;
 
