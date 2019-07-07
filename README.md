@@ -31,18 +31,18 @@ import {
   Path,
 } from 'react-static-google-map';
 
-<StaticGoogleMap size="600x600">
+<StaticGoogleMap size="600x600" className="img-fluid" apiKey="YOUR_API_KEY">
+  <Marker location="6.4488387,3.5496361" color="blue" label="P" />
+</StaticGoogleMap>
+
+<StaticGoogleMap size="600x600" apiKey="YOUR_API_KEY">
   <Marker.Group label="T" color="brown">
     <Marker location="40.737102,-73.990318" />
     <Marker location="40.749825,-73.987963" />
   </Marker.Group>
 </StaticGoogleMap>
 
-<StaticGoogleMap size="600x600">
-  <Marker location="6.4488387,3.5496361" color="blue" label="P" />
-</StaticGoogleMap>
-
-<StaticGoogleMap size="600x600">
+<StaticGoogleMap size="600x600" apiKey="YOUR_API_KEY">
   <Marker
     location={{ lat: 40.737102, lng: -73.990318 }}
     color="blue"
@@ -60,12 +60,13 @@ import {
 ```
 Should render
 
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:brown%7Clabel:T%7C40.737102,-73.990318%7C40.749825,-73.987963">
+```html
+<img class="img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C6.4488387,3.5496361&key=YOUR_API_KEY">
 
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:brown%7Clabel:T%7C40.737102,-73.990318%7C40.749825,-73.987963&key=YOUR_API_KEY">
 
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C40.737102,-73.990318&path=weight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397">
-
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x400&scale=1&format=png&maptype=roadmap&markers=size:normal%7C6.43551,3.5083213%7C6.430699700000001,3.4957468000000005">
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C40.737102,-73.990318&path=weight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY">
+```
 
 ## Documentation
  - [Marker Component](#marker-component)
@@ -102,7 +103,11 @@ It takes the following props
 </StaticGoogleMap>
 ```
 
-Would render [this image](https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg,Brooklyn,NY&zoom=13&size=400x400&markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222)
+Would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg,Brooklyn,NY&zoom=13&size=400x400&markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&key=YOUR_API_KEY">
+```
 
 ```jsx
 <StaticGoogleMap size="600x600">
@@ -120,7 +125,11 @@ Would render [this image](https://maps.googleapis.com/maps/api/staticmap?center=
 </StaticGoogleMap>
 ```
 
-would render [this image](https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://goo.gl/1oTJ9Y%7CCanberra+ACT&markers=size:normal%7Canchor:topleft%7Cicon:http://tinyurl.com/jrhlvu6%7CMelbourne+VIC&markers=size:normal%7Canchor:32,10%7Cicon:https://goo.gl/5y3S82%7CMelbourne+VIC)
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://goo.gl/1oTJ9Y%7CCanberra+ACT&markers=size:normal%7Canchor:topleft%7Cicon:http://tinyurl.com/jrhlvu6%7CMelbourne+VIC&markers=size:normal%7Canchor:32,10%7Cicon:https://goo.gl/5y3S82%7CMelbourne+VIC&key=YOUR_API_KEY">
+```
 
 ### Marker.Group
 
@@ -138,7 +147,11 @@ This component removes all other props expect `location` from its children.
 </StaticGoogleMap>
 ```
 
-would render [this image](https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C224+West+20th+Street+NY%7C75+9th+Ave+NY%7C700+E+9th+St+NY)
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C224+West+20th+Street+NY%7C75+9th+Ave+NY%7C700+E+9th+St+NY&key=YOUR_API_KEY">
+```
 
 ## Path Component
 ```js
@@ -172,7 +185,11 @@ It takes the following props
 </StaticGoogleMap>
 ```
 
-would render [this image](https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0xff0000ff%7Cweight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397)
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0xff0000ff%7Cweight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY">
+```
 
 You can also render encoded polyline paths
 ```jsx
@@ -184,7 +201,11 @@ You can also render encoded polyline paths
 </StaticGoogleMap>
 ```
 
-would render [this image](https://maps.googleapis.com/maps/api/staticmap?size=600x600&zoom=4&scale=2&format=png&maptype=roadmap&path=weight:6%7Cenc:_fisIp~u%7CU}%7Ca@pytA_~b@hhCyhS~hResU%7C%7Cx@oig@rwg@amUfbjA}f[roaAynd@%7CvXxiAt{ZwdUfbjAewYrqGchH~vXkqnAria@c_o@inc@k{g@i`]o%7CF}vXaj\h`]ovs@?yi_@rcAgtO%7Cj_AyaJren@nzQrst@zuYh`]v%7CGbldEuzd@%7C%7Cx@spD%7CtrAzwP%7Cd_@yiB~vXmlWhdPez\_{Km_`@~re@ew^rcAeu_@zhyByjPrst@ttGren@aeNhoFemKrvdAuvVidPwbVr~j@or@f_z@ftHr{ZlwBrvdAmtHrmT{rOt{Zz}E%7Cc%7C@o%7CLpn~AgfRpxqBfoVz_iAocAhrVjr@rh~@jzKhjp@``NrfQpcHrb^k%7CDh_z@nwB%7Ckb@a{R%7Cyh@uyZ%7CllByuZpzw@wbd@rh~@%7C%7CFhqs@teTztrAupHhyY}t]huf@e%7CFria@o}GfezAkdW%7C}[ocMt_Neq@ren@e~Ika@pgE%7Ci%7CAfiQ%7C`l@uoJrvdAgq@fppAsjGhg`@%7ChQpg{Ai_V%7C%7Cx@mkHhyYsdP%7CxeA~gF%7C}[mv`@t_NitSfjp@c}Mhg`@sbChyYq}e@rwg@atFff}@ghN~zKybk@fl}A}cPftcAite@tmT__Lha@u~DrfQi}MhkSqyWivIumCria@ciO_tHifm@fl}A{rc@fbjAqvg@rrqAcjCf%7Ci@mqJtb^s%7C@fbjA{wDfs`BmvEfqs@umWt_Nwn^pen@qiBr`xAcvMr{Zidg@dtjDkbM%7Cd_@)
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&zoom=4&scale=2&format=png&maptype=roadmap&path=weight:6%7Cenc:_fisIp~u%7CU}%7Ca@pytA_~b@hhCyhS~hResU%7C%7Cx@oig@rwg@amUfbjA}f[roaAynd@%7CvXxiAt{ZwdUfbjAewYrqGchH~vXkqnAria@c_o@inc@k{g@i`]o%7CF}vXaj\h`]ovs@?yi_@rcAgtO%7Cj_AyaJren@nzQrst@zuYh`]v%7CGbldEuzd@%7C%7Cx@spD%7CtrAzwP%7Cd_@yiB~vXmlWhdPez\_{Km_`@~re@ew^rcAeu_@zhyByjPrst@ttGren@aeNhoFemKrvdAuvVidPwbVr~j@or@f_z@ftHr{ZlwBrvdAmtHrmT{rOt{Zz}E%7Cc%7C@o%7CLpn~AgfRpxqBfoVz_iAocAhrVjr@rh~@jzKhjp@``NrfQpcHrb^k%7CDh_z@nwB%7Ckb@a{R%7Cyh@uyZ%7CllByuZpzw@wbd@rh~@%7C%7CFhqs@teTztrAupHhyY}t]huf@e%7CFria@o}GfezAkdW%7C}[ocMt_Neq@ren@e~Ika@pgE%7Ci%7CAfiQ%7C`l@uoJrvdAgq@fppAsjGhg`@%7ChQpg{Ai_V%7C%7Cx@mkHhyYsdP%7CxeA~gF%7C}[mv`@t_NitSfjp@c}Mhg`@sbChyYq}e@rwg@atFff}@ghN~zKybk@fl}A}cPftcAite@tmT__Lha@u~DrfQi}MhkSqyWivIumCria@ciO_tHifm@fl}A{rc@fbjAqvg@rrqAcjCf%7Ci@mqJtb^s%7C@fbjA{wDfs`BmvEfqs@umWt_Nwn^pen@qiBr`xAcvMr{Zidg@dtjDkbM%7Cd_@&key=YOUR_API_KEY">
+```
 
 ### Path.Group
 There is also a `Path.Group` component that renders different paths with the same style
@@ -202,7 +223,11 @@ This component removes all other props expect `points` from its children.
 </StaticGoogleMap>
 ```
 
-would render [this image](https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0x00000000%7Cweight:5%7Cfillcolor:0xFFFF0033%7C8th+Avenue+%26+34th+St,New+York,NY%7C8th+Avenue+%26+42nd+St,New+York,NY%7CPark+Ave+%26+42nd+St,New+York,NY,NY%7CPark+Ave+%26+34th+St,New+York,NY,NY)
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0x00000000%7Cweight:5%7Cfillcolor:0xFFFF0033%7C8th+Avenue+%26+34th+St,New+York,NY%7C8th+Avenue+%26+42nd+St,New+York,NY%7CPark+Ave+%26+42nd+St,New+York,NY,NY%7CPark+Ave+%26+34th+St,New+York,NY,NY&key=YOUR_API_KEY">
+```
 
 
 ## Direction Component
@@ -232,6 +257,12 @@ It takes the following props as well as props from [Path Component](#path-compon
     destination="6.6142085,3.3580775000000003"
   />
 </StaticGoogleMap>
+```
+
+would render
+
+```html
+<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x400&scale=1&format=png&maptype=roadmap&path=weight:5%7Cenc:eduf@i`oSa@pAoAzEc@~A[v@k@j@sA`A]`@{@k@e@OkASkDk@cEs@eG_AoAIk@@qBNw@@WCsEaAmBe@D]RiAhAgFRg@Zm@Z_@r@k@`@_@V_@Rc@|@uFh@eEHm@Fi@BKQAoAUoD}@kCm@iBYK?MBG@{GsAmHcBsDu@aCm@}@Y_Ac@w@e@aBuAwBqBkA}@YMs@[SGu@GwB?kGFoH@eIByOHmKLuPDsH@ui@^_NH}PL{QFqVJ{NLsGDqDFiIAcOJwKFuGD_E?}DI{E]eD_@_Ca@yCo@}C}@yAi@cCcAmDgByCkBkQgLuCmBsNgJwE}CmD}B{ViPsH}EeG_EkHwE{GqEeDuBc@YIi@{AcAYy@AWF[La@RQXMRE`@?d@LZVFNJ^@^Qv@UPe@\e@\iAz@eExCcD|BmCnB_@N]`@Ub@g@`@uA`AsOxKmFvD{EjDeJtGyAfAmBtAV^jCcBnByApBwA|EqDv@i@^Kb@Yh@Yx@URARBNHbArAzAnBj@v@J\GNUTqChBeFvDqCnBmEdCyBlAq@^{JrGeG`EuHpE]RaCtAwExC}OdJaJpFiC|An@nANb@@ZHLZWZOLG\CJBRDRLTVpCjE\l@fAfBbAfBx@pAbBpC|BnD_EhDcG~Ee@[UWi@i@XSKMQa@l@g@QW&key=YOUR_API_KEY">
 ```
 
 
