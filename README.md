@@ -245,7 +245,7 @@ It takes the following props as well as props from [Path Component](#path-compon
 
 - `origin` -  (required) specifies the start location from which to calculate directions. This value may be specified as a String (for example, "Chicago, IL"), as a LatLng value
 - `destination` - (required) specifies the end location to which to calculate directions. The options are the same as for the origin field described above.
-- `traveMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and WALKING`
+- `travelMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and WALKING`
 - `requestStrategy` - (optional) A function that takes origin, destination, and travelMode as parameters and returns a string promise of the encoded polyline path to draw on the map.
 
 ### Examples
