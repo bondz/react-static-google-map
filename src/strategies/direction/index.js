@@ -5,29 +5,31 @@ import NativeStrategy from './nativeStrategy';
 import FetchStrategy from './fetchStrategy';
 
 export const memoizeDirectionStrategy = (directionStrategy, cache = {}) => {
-  return function(){
-    const key = JSON.stringify(arguments[0].props);
+  return function() {
+    const componentProps = arguments[0].props;
+    const parentProps = arguments[1];
+    const key = JSON.stringify(componentProps);
     if (cache[key]){
       return cache[key];
-    }
-    else{
-      const val = directionStrategy.apply(null, arguments).then(path => {
+    } else {
+      const promise = directionStrategy.apply(null, arguments).then(strat => {
         // When this finally resolves, set the value of the cache to
         // the string path result. Subsequent renders will return a string
         // and use the base component instead of the Async component and
         // not cause the flash
-        cache[key] = path;
-        if (arguments[1].onCacheUpdate) {
-          arguments[1].onCacheUpdate({ ...cache });
+        cache[key] = strat;
+        if (parentProps.onCacheUpdate) {
+          parentProps.onCacheUpdate({ ...cache });
         }
+        return strat;
       });
       // Return the pending promise immedietly and the StaticGoogleMap
       // usage of the Async component will eventually handle it because
       // this funciton returned a Promise. This piece of the code prevents
       // multiple calls to google on each render, but does not solve the
       // "flash" of the Async component.
-      cache[key] = val;
-      return val;
+      cache[key] = promise;
+      return promise;
     }
   }
 }
