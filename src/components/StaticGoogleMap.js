@@ -24,7 +24,7 @@ class StaticGoogleMap extends Component {
     as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     onGenerate: PropTypes.func,
     rootURL: PropTypes.string,
-    initialCache: PropTypes.object,
+    cache: PropTypes.oneOfType([PropTypes.object, PropTypes.boolean]),
     onCacheUpdate: PropTypes.func,
 
     size: PropTypes.string.isRequired,
@@ -60,11 +60,12 @@ class StaticGoogleMap extends Component {
     rootURL: 'https://maps.googleapis.com/maps/api/staticmap',
     apiKey: '',
     maptype: 'roadmap',
+    cache: true
   };
 
-  DirectionStrategy = memoizeDirectionStrategy(
+  MemoizedDirectionStrategy = memoizeDirectionStrategy(
     DirectionStrategy,
-    { ...this.props.initialCache }
+    { ...this.props.cache }
   );
 
   buildParts(children, props) {
@@ -83,7 +84,10 @@ class StaticGoogleMap extends Component {
         case Path.Group:
           return PathGroupStrategy(child, props);
         case Direction:
-          return this.DirectionStrategy(child, props);
+          if (props.cache) {
+            return this.MemoizedDirectionStrategy(child, props);
+          }
+          return DirectionStrategy(child, props)
         default:
           const componentType = child.type;
 
@@ -124,7 +128,7 @@ class StaticGoogleMap extends Component {
       language,
       signature,
       apiKey,
-      initialCache,
+      cache,
       onCacheUpdate,
       ...componentProps
     } = props;
