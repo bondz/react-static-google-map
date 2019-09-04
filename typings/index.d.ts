@@ -148,6 +148,7 @@ declare namespace ReactStaticGoogleMap {
       | number;
     iconURL: string;
     label: string;
+    scale?: '1' | '2' | '4' | 1 | 2 | 4;
     anchor:
       | 'left'
       | 'right'
