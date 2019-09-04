@@ -124,7 +124,30 @@ declare namespace ReactStaticGoogleMap {
      * @memberof GoogleMapImageProps
      */
     channel?: string;
+
+    /**
+     * An object where each key is the JSON.stringify(props)
+     * of the Direction component and each value is the
+     * generated path of those props for the internal cache
+     * to be initiated with. Can also be set to boolean if
+     * no initial cache is given
+     *
+     * @type {boolean | object}
+     * @memberof GoogleMapImageProps
+     * @default true
+     */
+    cache?: boolean | cacheType;
+
+    /**
+     * A callback function that is called when a new entry
+     * is added to the internal Direction cache
+     *
+     * @memberof GoogleMapImageProps
+     */
+    onCacheUpdate?: (cache: cacheType) => void;
   }
+
+  type cacheType = boolean | { [stringProps: string]: string }
 
   type locationType =
     | string

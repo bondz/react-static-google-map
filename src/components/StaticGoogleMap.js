@@ -24,8 +24,6 @@ class StaticGoogleMap extends Component {
     as: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     onGenerate: PropTypes.func,
     rootURL: PropTypes.string,
-    cache: PropTypes.oneOfType([PropTypes.object, PropTypes.boolean]),
-    onCacheUpdate: PropTypes.func,
 
     size: PropTypes.string.isRequired,
     scale: PropTypes.oneOf([1, 2, 4, '1', '2', '4']),
@@ -51,6 +49,9 @@ class StaticGoogleMap extends Component {
     apiKey: PropTypes.string,
     signature: PropTypes.string,
     channel: PropTypes.string,
+
+    cache: PropTypes.oneOfType([PropTypes.object, PropTypes.boolean]),
+    onCacheUpdate: PropTypes.func,
   };
 
   static defaultProps = {
