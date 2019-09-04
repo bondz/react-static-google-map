@@ -2,7 +2,7 @@ import { urlBuilder, locationBuilder } from './utils';
 import invariant from 'invariant';
 
 const markerStrategy = ({ props, type: { defaultProps } }, parentProps) => {
-  const { size, color, label, anchor, iconURL, location } = props;
+  const { size, color, label, anchor, iconURL, location, scale } = props;
 
   invariant(location, 'Marker expects a valid location prop');
 
@@ -14,6 +14,7 @@ const markerStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   urlParts.push(urlBuilder('color', color, ':'));
   urlParts.push(urlBuilder('label', label, ':'));
   urlParts.push(urlBuilder('anchor', anchor, ':'));
+  urlParts.push(urlBuilder('scale', scale, ':'));
   urlParts.push(urlBuilder('icon', iconURL, ':'));
   urlParts.push(urlBuilder('', locationBuilder(location), ''));
 
