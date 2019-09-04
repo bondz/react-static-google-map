@@ -4,6 +4,34 @@ import PathStrategy from '../path';
 import NativeStrategy from './nativeStrategy';
 import FetchStrategy from './fetchStrategy';
 
+export const memoizeDirectionStrategy = (directionStrategy, cache = {}) => {
+  return function({ props }, parentProps) {
+    const key = JSON.stringify(props);
+    if (cache[key]){
+      return cache[key];
+    } else {
+      const promise = directionStrategy.apply(null, arguments).then(strat => {
+        // When this finally resolves, set the value of the cache to
+        // the string path result. Subsequent renders will return a string
+        // and use the base component instead of the Async component and
+        // not cause the flash
+        cache[key] = strat;
+        if (parentProps.onCacheUpdate) {
+          parentProps.onCacheUpdate({ ...cache });
+        }
+        return strat;
+      });
+      // Return the pending promise immedietly and the StaticGoogleMap
+      // usage of the Async component will eventually handle it because
+      // this function returned a Promise. This piece of the code prevents
+      // multiple calls to google on each render, but does not solve the
+      // "flash" of the Async component.
+      cache[key] = promise;
+      return promise;
+    }
+  }
+}
+
 const directionStrategy = ({ props, type: { defaultProps } }, parentProps) => {
   const {
     baseURL,

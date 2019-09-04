@@ -248,6 +248,8 @@ It takes the following props as well as props from [Path Component](#path-compon
 - `travelMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and WALKING`
 - `requestStrategy` - (optional) A function that takes origin, destination, and travelMode as parameters and returns a string promise of the encoded polyline path to draw on the map.
 
+Also see the `cache` and `onCacheUpdate` props on the `StaticGoogleMap` component.
+
 ### Examples
 
 ```jsx
@@ -291,6 +293,8 @@ It takes the following props
 - `signature`: (recommended) is a digital signature used to verify that any site generating requests using your API key is authorized to do so.
 - `client`: (optional) By using your client ID (instead of an API key) to authenticate requests, you can: Add the channel parameter to requests so you can view more detailed usage reports.
 - `channel`: (optional) used to provide additional reporting detail, by grouping different channels separately in your reports. Refer to the [Premium Plan Reporting Overview](https://developers.google.com/maps/premium/reports/) for more information.
+- `cache`: (optional, default: true) Only used when rendering a `Direction` component. Because the `Direction` component is async and will attempt to fetch directions on each render, setting this prop to `true` will keep an internal cache of requests. This saves calls to the directions service as well as prevents the component from flashing as it fetches new directions. You can also initialize the cache by passing it an object.
+- `onCacheUpate`: (optional) Only used when rendering a `Direction` component. This function will be called everytime a new entry is added to the internal cache. It can be used to save the cache to localStorage, for example. This is helpful to intilialize the `cache` prop from storage.
 
 ### URL Size Restriction
 
