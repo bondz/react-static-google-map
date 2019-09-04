@@ -5,10 +5,8 @@ import NativeStrategy from './nativeStrategy';
 import FetchStrategy from './fetchStrategy';
 
 export const memoizeDirectionStrategy = (directionStrategy, cache = {}) => {
-  return function() {
-    const componentProps = arguments[0].props;
-    const parentProps = arguments[1];
-    const key = JSON.stringify(componentProps);
+  return function({ props }, parentProps) {
+    const key = JSON.stringify(props);
     if (cache[key]){
       return cache[key];
     } else {
