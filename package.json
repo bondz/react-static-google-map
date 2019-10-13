@@ -20,7 +20,7 @@
   "dependencies": {
     "invariant": "^2.2.2",
     "react": ">=0.14.x",
-    "react-promise": "^2.0.0"
+    "react-promise": "^3.0.0"
   },
   "devDependencies": {
     "@types/react": "16.9.5",
