@@ -34,7 +34,7 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.0.2",
     "jest": "21.2.1",
-    "prop-types": "15.6.0",
+    "prop-types": "15.7.2",
     "raf": "3.4.0",
     "react-dom": "16.0.1",
     "rollup": "0.50.0",
