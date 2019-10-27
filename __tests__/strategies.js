@@ -1,16 +1,11 @@
 import React from 'react';
-// import Adapter from 'enzyme-adapter-react-16';
-// import Enzyme, { shallow, mount, render } from 'enzyme';
 
-import { StaticGoogleMap, Marker, Path, Direction } from '../src/index';
+import { Marker, Path, Direction } from '../src/index';
 import MarkerStrategy from '../src/strategies/marker';
 import MarkerGroupStrategy from '../src/strategies/markergroup';
 import PathStrategy from '../src/strategies/path';
 import PathGroupStrategy from '../src/strategies/pathgroup';
 import DirectionStrategy from '../src/strategies/direction/index';
-import MapStrategy from '../src/strategies/map';
-
-// Enzyme.configure({ adapter: new Adapter() });
 
 describe('Marker Strategy', () => {
   test('MarkerStrategy is defined', () => {
