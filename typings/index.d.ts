@@ -156,8 +156,8 @@ declare namespace ReactStaticGoogleMap {
     | Array<string | number | { lat: string | number; lng: string | number }>;
 
   interface MarkerGroup {
-    size: 'tiny' | 'mid' | 'small' | 'normal';
-    color:
+    size?: 'tiny' | 'mid' | 'small' | 'normal';
+    color?:
       | 'black'
       | 'brown'
       | 'green'
@@ -169,10 +169,10 @@ declare namespace ReactStaticGoogleMap {
       | 'red'
       | 'white'
       | number;
-    iconURL: string;
-    label: string;
+    iconURL?: string;
+    label?: string;
     scale?: '1' | '2' | '4' | 1 | 2 | 4;
-    anchor:
+    anchor?:
       | 'left'
       | 'right'
       | 'center'
