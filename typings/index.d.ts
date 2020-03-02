@@ -1,7 +1,7 @@
 import { Component, StatelessComponent } from 'react';
 
 declare namespace ReactStaticGoogleMap {
-  interface GoogleMapImageProps {
+  interface GoogleMapImageProps extends React.HTMLProps<T> {
     /**
      * Any element that accepts a 'src' attribute
      *
