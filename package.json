@@ -6,7 +6,7 @@
   "browser": "dist/react-static-google-map.umd.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:bondz/react-static-google-map.git"
+    "url": "https://github.com/bondz/react-static-google-map"
   },
   "sideEffects": false,
   "author": "Akinmade Bond <bond@max.ng>",
