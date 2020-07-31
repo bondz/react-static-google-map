@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -22,11 +21,11 @@ const groupPropTypes = {
   anchor: PropTypes.string,
 };
 
-const Marker = props => null;
+const Marker = () => null;
 Marker.propTypes = propTypes;
 Marker.defaultProps = defaultProps;
 
-const MarkerGroup = props => null;
+const MarkerGroup = () => null;
 MarkerGroup.propTypes = groupPropTypes;
 MarkerGroup.defaultProps = defaultProps;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -35,7 +34,7 @@ const defaultProps = {
   geodesic: false,
 };
 
-const Direction = props => null;
+const Direction = () => null;
 
 Direction.propTypes = propTypes;
 Direction.defaultProps = defaultProps;

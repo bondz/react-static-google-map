@@ -1,8 +1,6 @@
 import React from 'react';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { StaticGoogleMap, Marker, Path, Direction } from '../src/index';
-
-afterEach(cleanup);
 
 describe('Components', () => {
   test('It exports Components', () => {
@@ -30,13 +28,13 @@ describe('Components', () => {
   });
 
   test('It renders an image with default props', () => {
-    const { getByAltText } = render(
+    render(
       <StaticGoogleMap size="test" alt="static-map">
         <Marker location="location" />
       </StaticGoogleMap>
     );
 
-    const element = getByAltText('static-map');
+    const element = screen.getByAltText('static-map');
 
     expect(element).not.toBeNull();
     expect(element.localName).toBe('img');
@@ -48,13 +46,13 @@ describe('Components', () => {
       <Marker color="red" {...props} />
     );
 
-    const { getByAltText } = render(
+    render(
       <StaticGoogleMap size="test" alt="static-map">
         <RedMarker location="test" />
       </StaticGoogleMap>
     );
 
-    const node = getByAltText('static-map');
+    const node = screen.getByAltText('static-map');
 
     expect(node.getAttribute('src').includes('marker')).toBe(true);
     expect(node.getAttribute('src')).toContain('color:red');
@@ -63,14 +61,14 @@ describe('Components', () => {
   test('It calls onGenerate method when a URL is successfully generated', () => {
     const onGenerate = jest.fn();
 
-    const { getByAltText } = render(
+    render(
       <StaticGoogleMap size="test" onGenerate={onGenerate} alt="static-map">
         <Marker location="test" />
         <Path points="test" />
       </StaticGoogleMap>
     );
 
-    const node = getByAltText('static-map');
+    const node = screen.getByAltText('static-map');
     const url = node.getAttribute('src');
 
     expect(url).toBeTruthy();
@@ -82,20 +80,14 @@ describe('Components', () => {
     const title = 'A test title';
     const alt = 'An alternate property';
 
-    const { getByTestId } = render(
-      <StaticGoogleMap
-        size="test"
-        title={title}
-        alt={alt}
-        data-testid="static-map"
-      >
+    render(
+      <StaticGoogleMap size="test" title={title} alt={alt}>
         <Marker location="test" />
       </StaticGoogleMap>
     );
 
-    const node = getByTestId('static-map');
+    const node = screen.getByRole('img');
 
-    expect(node.localName).toBe('img');
     expect(node.getAttribute('title')).toBe(title);
     expect(node.getAttribute('alt')).toBe(alt);
   });
@@ -103,7 +95,7 @@ describe('Components', () => {
   test('Direction renders path', async () => {
     const testStrategy = jest.fn(() => Promise.resolve('test'));
 
-    const { getByAltText, container, debug } = render(
+    render(
       <StaticGoogleMap size="testSize" alt="static-map">
         <Direction
           origin="testOrigin"
@@ -113,9 +105,7 @@ describe('Components', () => {
       </StaticGoogleMap>
     );
 
-    const node = await waitForElement(() => getByAltText('static-map'), {
-      container
-    });
+    const node = await screen.findByAltText('static-map');
     const link = node.getAttribute('src');
 
     expect(link).toContain('enc:test');
@@ -142,10 +132,11 @@ describe('Components', () => {
   });
 
   test('A span is rendered if image generation failed', async () => {
-    expect.assertions(3);
+    expect.assertions(4);
     const testStrategy = jest.fn(() => Promise.reject('test'));
+    console.error = jest.fn();
 
-    const { getByText, getByAltText, container } = render(
+    render(
       <StaticGoogleMap size="testSize" alt="static-map">
         <Direction
           origin="testOrigin"
@@ -157,19 +148,10 @@ describe('Components', () => {
 
     expect(testStrategy).toHaveBeenCalledTimes(1);
 
-    await waitForElement(() => getByAltText('static-map'), {
-      container
-    }).catch(e => {
-      expect(e).toBeDefined();
-    });
-
-    const node = await waitForElement(
-      () => getByText('Image generation failed.'),
-      {
-        container
-      }
-    );
-
+    const node = await screen.findByText('Image generation failed.');
     expect(node.localName).toBe('span');
+    expect(console.error).toHaveBeenCalledTimes(1);
+
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 });
