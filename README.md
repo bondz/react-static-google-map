@@ -278,7 +278,7 @@ This is the container component all other components should be rendered in.
 
 It takes the following props
 
-- `rootUrl`: (optional) The root url in which all params will be serialized and appended to. Defaults to `https://maps.googleapis.com/maps/api/staticmap`.
+- `rootURL`: (optional) The root url in which all params will be serialized and appended to. Defaults to `https://maps.googleapis.com/maps/api/staticmap`.
 - `as`: (optional) The element for the URL to be rendered in. Defaults to `img`
 - `onGenerate`: (optional) function called with the generated image URL
 - `size`: (required) defines the rectangular dimensions of the map image. This parameter takes a string of the form `{horizontal_value}x{vertical_value}`. For example, `500x400` defines a map `500 pixels` wide by `400 pixels` high. Maps smaller than 180 pixels in width will display a reduced-size Google logo. This parameter is affected by the `scale` parameter; the final output size is the product of the size and scale values.
