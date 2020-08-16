@@ -288,7 +288,7 @@ It takes the following props
 - `language`: (optional) defines the language to use for display of labels on map tiles. Note that this parameter is only supported for some country tiles; if the specific language requested is not supported for the tile set, then the default language for that tileset will be used.
 - `region`: (optional) defines the appropriate borders to display, based on geo-political sensitivities. Accepts a region code specified as a two-character ccTLD ('top-level domain') value.
 - `visible`: (optional) specifies one or more locations that should remain visible on the map, though no markers or other indicators will be displayed. Use this parameter to ensure that certain features or map locations are shown on the Google Static Maps API.
-- `style`: (optional) defines a custom style to alter the presentation of a specific feature (roads, parks, and other features) of the map. This parameter takes feature and element arguments identifying the features to style, and a set of style operations to apply to the selected features.
+- `style`: (optional) defines a custom style to alter the presentation of a specific feature (roads, parks, and other features) of the map. This parameter takes feature and element arguments identifying the features to style, and a set of style operations to apply to the selected features. See [Using the DOM style atrribute](###-Using-the-DOM-style-atrribute) for more information.
 - `center`: (required if markers not present) defines the center of the map, equidistant from all edges of the map. This parameter takes a location as either a comma-separated {latitude,longitude} pair (e.g. "40.714728,-73.998672") or a string address (e.g. "city hall, new york, ny") identifying a unique location on the face of the earth.
 - `zoom`: (optional if markers not present) defines the zoom level of the map, which determines the magnification level of the map. This parameter takes a numerical value corresponding to the zoom level of the region desired.
 - `apiKey`: (optional) allows you to monitor your application's API usage in the [Google API Console](https://support.google.com/googleapi/#topic=7013279)
@@ -298,10 +298,20 @@ It takes the following props
 - `cache`: (optional, default: true) Only used when rendering a `Direction` component. Because the `Direction` component is async and will attempt to fetch directions on each render, setting this prop to `true` will keep an internal cache of requests. This saves calls to the directions service as well as prevents the component from flashing as it fetches new directions. You can also initialize the cache by passing it an object.
 - `onCacheUpate`: (optional) Only used when rendering a `Direction` component. This function will be called everytime a new entry is added to the internal cache. It can be used to save the cache to localStorage, for example. This is helpful to intilialize the `cache` prop from storage.
 
+### Using the DOM style atrribute
+
+You may have noticed that the `style` prop is used as Google param, rather than passed to the `<img style={...}>`. This is because Google has a `style` param and this lib aims to have parity with the Google params. If you need to add a `style` DOM attribute, use the `as` prop. For example,
+
+```jsx
+<StaticGoogleMap as={props => <img {...props} style={...yourStyles} />}>
+  <Marker location="x" />
+</StaticGoogleMap>
+```
+
 ### URL Size Restriction
 
 Google Static Maps API URLs are restricted to `8192` characters in size. In practice, you will probably not have need for URLs longer than this, unless you produce complicated maps with a high number of markers and paths.
 
-## License
+## License Brug
 
 [MIT](LICENSE).
