@@ -300,7 +300,7 @@ It takes the following props
 
 ### Using the DOM style atrribute
 
-You may have noticed that the `style` prop is used as Google param, rather than passed to the `<img style={...}>`. This is because Google has a `style` param and this lib aims to have parity with the Google params. If you need to add a `style` DOM attribute, use the `as` prop. For example,
+You may have noticed that the `style` prop is used as a Google param, rather than passed to the `<img style={...}>`. This is because Google has a `style` param and this lib aims to have parity with the Google params. If you need to add a `style` DOM attribute, use the `as` prop. For example,
 
 ```jsx
 <StaticGoogleMap as={props => <img {...props} style={...yourStyles} />}>
@@ -312,6 +312,6 @@ You may have noticed that the `style` prop is used as Google param, rather than 
 
 Google Static Maps API URLs are restricted to `8192` characters in size. In practice, you will probably not have need for URLs longer than this, unless you produce complicated maps with a high number of markers and paths.
 
-## License Brug
+## License
 
 [MIT](LICENSE).
