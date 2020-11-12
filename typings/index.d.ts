@@ -1,4 +1,4 @@
-import React, { Component, StatelessComponent } from 'react';
+import { Component, FunctionComponent } from 'react';
 
 declare namespace ReactStaticGoogleMap {
   interface GoogleMapImageProps
@@ -66,7 +66,7 @@ declare namespace ReactStaticGoogleMap {
     region?: string;
 
     /**
-     * Specified the center of the image
+     * Specifies the center of the image
      *
      * @type {string}
      * @memberof GoogleMapImageProps
@@ -74,7 +74,7 @@ declare namespace ReactStaticGoogleMap {
     center?: string;
 
     /**
-     * DSPecifies the zoom level of the image
+     * Specifies the zoom level of the image
      *
      * @type {(string | number)}
      * @memberof GoogleMapImageProps
@@ -148,7 +148,7 @@ declare namespace ReactStaticGoogleMap {
     onCacheUpdate?: (cache: cacheType) => void;
   }
 
-  type cacheType = boolean | { [stringProps: string]: string }
+  type cacheType = boolean | { [stringProps: string]: string };
 
   type locationType =
     | string
@@ -156,7 +156,7 @@ declare namespace ReactStaticGoogleMap {
     | { lat: string | number; lng: string | number }
     | Array<string | number | { lat: string | number; lng: string | number }>;
 
-  interface MarkerGroup {
+  interface MarkerProps {
     size?: 'tiny' | 'mid' | 'small' | 'normal';
     color?:
       | 'black'
@@ -182,19 +182,12 @@ declare namespace ReactStaticGoogleMap {
       | 'bottomleft'
       | 'bottomright'
       | string;
-  }
-
-  interface Marker extends MarkerGroup {
     location: locationType;
   }
 
-  const MarkerGroupComponent: StatelessComponent<MarkerGroup>;
+  type MarkerGroup = Omit<MarkerProps, 'location'>;
 
-  interface MarkerComponent extends StatelessComponent<Marker> {
-    Group: typeof MarkerGroupComponent;
-  }
-
-  interface PathGroup {
+  interface PathProps {
     weight?: string | number;
     color?:
       | 'black'
@@ -211,28 +204,21 @@ declare namespace ReactStaticGoogleMap {
       | number;
     fillcolor?: string;
     geodesic?: boolean;
-  }
-
-  interface Path extends PathGroup {
     points: locationType;
   }
 
-  const PathGroupComponent: StatelessComponent<PathGroup>;
+  type PathGroup = Omit<PathProps, 'points'>;
 
-  interface PathComponent extends StatelessComponent<Path> {
-    Group: typeof PathGroupComponent;
-  }
-
-  interface Direction extends PathGroup {
+  interface DirectionProps extends PathGroup {
     origin: string | { lat: string | number; lng: string | number };
     destination: string | { lat: string | number; lng: string | number };
-    apiKey: string;
-    waypoints: any;
-    avoid: 'tolls' | 'highways' | 'ferries' | 'indoor';
-    travelMode: 'driving' | 'walking' | 'bicycling' | 'transit';
-    transitMode: 'bus' | 'subway' | 'train' | 'tram' | 'rail';
-    transitRoutingPreference: 'less_walking' | 'fewer_transfers';
-    requestStrategy: 'fetch' | 'native' | RequestStrategy;
+    apiKey?: string;
+    waypoints?: any;
+    avoid?: 'tolls' | 'highways' | 'ferries' | 'indoor';
+    travelMode?: 'driving' | 'walking' | 'bicycling' | 'transit';
+    transitMode?: 'bus' | 'subway' | 'train' | 'tram' | 'rail';
+    transitRoutingPreference?: 'less_walking' | 'fewer_transfers';
+    requestStrategy?: 'fetch' | 'native' | RequestStrategy;
   }
 
   type RequestStrategy = (data: RequestStrategyOptions) => Promise<string>;
@@ -249,15 +235,18 @@ declare namespace ReactStaticGoogleMap {
     transitRoutingPreference?: 'less_walking' | 'fewer_transfers';
     [index: string]: any;
   }
+
+  class StaticGoogleMap extends Component<GoogleMapImageProps> {}
+
+  const Marker: FunctionComponent<MarkerProps> & {
+    Group: FunctionComponent<MarkerGroup>;
+  };
+
+  const Path: FunctionComponent<PathProps> & {
+    Group: FunctionComponent<PathGroup>;
+  };
+
+  const Direction: FunctionComponent<DirectionProps>;
 }
 
-declare class StaticGoogleMap extends Component<
-  ReactStaticGoogleMap.GoogleMapImageProps,
-  object
-> {}
-
-declare const Marker: ReactStaticGoogleMap.MarkerComponent;
-declare const Path: ReactStaticGoogleMap.PathComponent;
-declare const Direction: StatelessComponent<ReactStaticGoogleMap.Direction>;
-
-export { StaticGoogleMap, Marker, Path, Direction };
+export = ReactStaticGoogleMap;
