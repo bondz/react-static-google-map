@@ -1,7 +1,7 @@
 {
   "name": "react-static-google-map",
   "description": "Reusable react component to load Google Static map images in your react app",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "main": "dist/react-static-google-map.cjs.js",
   "module": "dist/react-static-google-map.esm.js",
   "browser": "dist/react-static-google-map.umd.js",
@@ -51,7 +51,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "jest",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "postpublish": "echo 'pushing'",
     "postversion": "npm publish --dry-run",
     "preversion": "yarn test"
