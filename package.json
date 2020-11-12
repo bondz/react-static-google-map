@@ -51,9 +51,9 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "test": "jest",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "postpublish": "git push origin --all; git push origin --tags",
-    "postversion": "yarn publish",
+    "postversion": "npm publish",
     "preversion": "yarn test"
   },
   "files": [
