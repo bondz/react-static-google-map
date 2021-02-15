@@ -1,6 +1,6 @@
 import { urlBuilder } from './utils';
 
-const MapStrategy = props => {
+const MapStrategy = (props, childURL) => {
   const {
     rootURL,
     size,
@@ -33,8 +33,9 @@ const MapStrategy = props => {
   urlParts.push(urlBuilder('channel', channel, '='));
   urlParts.push(urlBuilder('maptype', maptype, '='));
   urlParts.push(urlBuilder('language', language, '='));
-  urlParts.push(urlBuilder('signature', signature, '='));
   urlParts.push(urlBuilder('key', apiKey, '='));
+  if(childURL){ urlParts.push(childURL) }
+  urlParts.push(urlBuilder('signature', signature, '='));
 
   const parts = urlParts.filter(x => x).join('&');
 

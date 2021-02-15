@@ -154,4 +154,21 @@ describe('Components', () => {
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
+
+  test('ULR should have signature as last part', async () => {
+    const title = 'A test title';
+    const signature = 'A test signature';
+    const alt = 'An alternate property';
+    const hasSignAtEnd = str => new RegExp(`.*&signature=${signature}$`).test(str);
+    render(
+      <StaticGoogleMap size="test" title={title} alt={alt} signature={signature}>
+        <Marker location="test" />
+      </StaticGoogleMap>
+    );
+
+    const node = screen.getByRole('img');
+    const src = node.getAttribute('src');
+
+    expect(hasSignAtEnd(src)).toBe(true);
+  });
 });

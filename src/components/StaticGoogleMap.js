@@ -141,7 +141,7 @@ class StaticGoogleMap extends Component {
     );
 
     const childrenUrlParts = this.buildParts(children, props) || [];
-    const mainUrlParts = MapStrategy(props);
+    const mainUrlParts = MapStrategy(props, undefined);
 
     /**
      * All the parts should return a string if a component that does not return a promise isn't used
@@ -150,7 +150,7 @@ class StaticGoogleMap extends Component {
      */
     if (!childrenUrlParts.some(part => typeof part === 'object')) {
       const childURL = childrenUrlParts.filter(part => part).join('&');
-      const url = `${mainUrlParts}&${childURL}`;
+      const url = MapStrategy(props, childURL);
 
       if (onGenerate) {
         onGenerate(url);
