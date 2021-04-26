@@ -146,6 +146,15 @@ declare namespace ReactStaticGoogleMap {
      * @memberof GoogleMapImageProps
      */
     onCacheUpdate?: (cache: cacheType) => void;
+      
+    /**
+     * The root url in which all params will be serialized and appended to.
+     *
+     * @type {string}
+     * @memberof GoogleMapImageProps
+     * @default https://maps.googleapis.com/maps/api/staticmap
+     */
+    rootURL?: string;
   }
 
   type cacheType = boolean | { [stringProps: string]: string };
