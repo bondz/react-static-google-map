@@ -86,6 +86,8 @@ declare namespace ReactStaticGoogleMap {
 
     style?: string;
 
+    mapId?: string;
+
     /**
      * Paths to show on the map
      *
@@ -146,7 +148,7 @@ declare namespace ReactStaticGoogleMap {
      * @memberof GoogleMapImageProps
      */
     onCacheUpdate?: (cache: cacheType) => void;
-      
+
     /**
      * The root url in which all params will be serialized and appended to.
      *

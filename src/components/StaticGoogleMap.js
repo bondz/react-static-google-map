@@ -41,6 +41,7 @@ class StaticGoogleMap extends Component {
     region: PropTypes.string,
     visible: PropTypes.string,
     style: PropTypes.string,
+    mapId: PropTypes.string,
 
     center: PropTypes.string,
     zoom: PropTypes.string,
@@ -119,6 +120,7 @@ class StaticGoogleMap extends Component {
       zoom,
       scale,
       style,
+      mapId,
       center,
       format,
       client,

@@ -7,6 +7,7 @@ const MapStrategy = props => {
     zoom,
     scale,
     style,
+    mapId,
     center,
     format,
     client,
@@ -25,6 +26,7 @@ const MapStrategy = props => {
   urlParts.push(urlBuilder('zoom', zoom, '='));
   urlParts.push(urlBuilder('scale', scale, '='));
   urlParts.push(urlBuilder('style', style, '='));
+  urlParts.push(urlBuilder('map_id', mapId, '='));
   urlParts.push(urlBuilder('center', center, '=')); // Todo: Allow Objects.
   urlParts.push(urlBuilder('format', format, '='));
   urlParts.push(urlBuilder('client', client, '='));
