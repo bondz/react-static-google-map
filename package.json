@@ -65,5 +65,8 @@
       "./jest.setup.js"
     ],
     "testEnvironment": "jsdom"
+  },
+  "resolutions": {
+    "react": "16.0.0"
   }
 }
