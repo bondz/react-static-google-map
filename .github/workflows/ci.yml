@@ -2,8 +2,6 @@ name: 'Static Google Map Tests'
 
 on:
   push:
-    branches:
-      - *
   pull_request:
     branches:
       - main
