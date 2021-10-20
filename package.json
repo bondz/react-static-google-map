@@ -10,7 +10,7 @@
     "url": "https://github.com/bondz/react-static-google-map"
   },
   "sideEffects": false,
-  "author": "Akinmade Bond <bond@max.ng>",
+  "author": "Bond <bonda@decagon.institute>",
   "typings": "./typings/index.d.ts",
   "license": "MIT",
   "keywords": [
@@ -24,28 +24,28 @@
     "react-promise": "2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-external-helpers": "^7.10.4",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-external-helpers": "^7.14.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-export-namespace-from": "^7.14.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@testing-library/jest-dom": "^5.11.1",
-    "@testing-library/react": "10.4.7",
-    "@types/react": "16.9.43",
-    "babel-jest": "^26.1.0",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "12.1.2",
+    "@types/react": "17.0.30",
+    "babel-jest": "^27.3.1",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
-    "jest": "26.1.0",
+    "jest": "27.3.1",
     "prop-types": "15.7.2",
     "react-dom": "16.0.1",
-    "rollup": "2.23.0"
+    "rollup": "2.58.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -63,6 +63,7 @@
   "jest": {
     "setupFilesAfterEnv": [
       "./jest.setup.js"
-    ]
+    ],
+    "testEnvironment": "jsdom"
   }
 }
