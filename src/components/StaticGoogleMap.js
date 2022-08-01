@@ -76,16 +76,16 @@ class StaticGoogleMap extends Component {
         return null;
       }
 
-      switch (child.type) {
-        case Marker:
+      switch (child.type.propTypes) {
+        case Marker.propTypes:
           return MarkerStrategy(child, props);
-        case Marker.Group:
+        case Marker.Group.propTypes:
           return MarkerGroupStrategy(child, props);
-        case Path:
+        case Path.propTypes:
           return PathStrategy(child, props);
-        case Path.Group:
+        case Path.Group.propTypes:
           return PathGroupStrategy(child, props);
-        case Direction:
+        case Direction.propTypes:
           if (props.cache) {
             return this.MemoizedDirectionStrategy(child, props);
           }
