@@ -1,4 +1,4 @@
-name: 'Static Google Map Tests'
+name: CI
 
 on:
   push:
@@ -7,21 +7,17 @@ on:
       - main
 
 jobs:
-  Run-Tests:
+  check:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v6
+
+      - uses: voidzero-dev/setup-vp@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-      - name: Run tests!
-        run: yarn test
+          node-version: "22"
+          cache: true
+
+      - run: vp install
+      - run: vp check
+      - run: vp test
+      - run: vp pack
