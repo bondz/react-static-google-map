@@ -21,7 +21,7 @@ jobs:
 
       - uses: voidzero-dev/setup-vp@v1
         with:
-          node-version: "22"
+          node-version: "24"
           cache: true
 
       - run: vp install
@@ -45,7 +45,7 @@ jobs:
 
       - uses: voidzero-dev/setup-vp@v1
         with:
-          node-version: "22"
+          node-version: "24"
           cache: true
 
       - run: vp install
@@ -53,13 +53,11 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: lts/*
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to npm
         run: npm publish --provenance --access public --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   create-release:
     needs: [build, publish-npm]
