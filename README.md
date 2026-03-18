@@ -23,7 +23,6 @@ Show Google Map static images the React way.
 yarn add react-static-google-map
 ```
 
-
 ```jsx
 import {
   StaticGoogleMap,
@@ -58,26 +57,36 @@ import {
   />
 </StaticGoogleMap>
 ```
+
 Should render
 
 ```html
-<img class="img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C6.4488387,3.5496361&key=YOUR_API_KEY">
+<img
+  class="img-fluid"
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C6.4488387,3.5496361&key=YOUR_API_KEY"
+/>
 
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:brown%7Clabel:T%7C40.737102,-73.990318%7C40.749825,-73.987963&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:brown%7Clabel:T%7C40.737102,-73.990318%7C40.749825,-73.987963&key=YOUR_API_KEY"
+/>
 
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C40.737102,-73.990318&path=weight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Ccolor:blue%7Clabel:P%7C40.737102,-73.990318&path=weight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY"
+/>
 ```
 
 ## Documentation
- - [Marker Component](#marker-component)
- - [Path Component](#path-component)
- - [Direction Component](#direction-component)
+
+- [Marker Component](#marker-component)
+- [Path Component](#path-component)
+- [Direction Component](#direction-component)
 
 All components must be rendered in the StaticGoogleMap container as children.
 
 ## Marker Component
+
 ```js
-import { Marker } from 'react-static-google-map';
+import { Marker } from "react-static-google-map";
 ```
 
 The `Marker` component allows you render [markers](https://developers.google.com/maps/documentation/static-maps/intro#Markers) on the image.
@@ -90,16 +99,13 @@ It takes the following props
 
 - `iconURL` - (optional) specifies the icon for the Marker - rather than use Google's marker icons - using a URL (which should be [URL-encoded](https://en.wikipedia.org/wiki/URL-encoding)). You can use URLs created by URL-shortening services such as https://goo.gl. Most URL-shortening services have the advantage of automatically encoding URLs.
 - `anchor` - (optional) sets how the icon is placed in relation to the specified markers locations. By default, the anchor point of a custom icon is the `bottom center` of the icon image. You can specify a different anchor point using the anchor descriptor in conjunction with your icon. Set the anchor as an `x,y` point of the icon (such as `10,5`), or as a predefined alignment using one of the following values: `top, bottom, left, right, center, topleft, topright, bottomleft, or bottomright`
-- `scale`: (optional) useful when using a custom marker iconURL.  The scale value is multiplied with the marker image size to produce the actual output size of the marker in pixels. Default scale value is 1; accepted values are 1, 2, and 4. Use marker scaling in conjunction with map scaling when displaying higher-resolution maps.
+- `scale`: (optional) useful when using a custom marker iconURL. The scale value is multiplied with the marker image size to produce the actual output size of the marker in pixels. Default scale value is 1; accepted values are 1, 2, and 4. Use marker scaling in conjunction with map scaling when displaying higher-resolution maps.
 - `location` - (required) defines the marker's location on the map. If the location is off the map, that marker will not appear in the constructed image provided that `center` and `zoom` props on the parent are supplied. However, if these props are not supplied, the Google Static Maps API server will automatically construct an image which contains the supplied markers ala [Implicit Positioning](https://developers.google.com/maps/documentation/static-maps/intro#ImplicitPositioning).
 
 ### Examples
+
 ```jsx
-<StaticGoogleMap
-  center="Williamsburg,Brooklyn,NY"
-  zoom="13"
-  size="400x400"
->
+<StaticGoogleMap center="Williamsburg,Brooklyn,NY" zoom="13" size="400x400">
   <Marker color="blue" label="S" location={[11211, 11206, 11222]} />
 </StaticGoogleMap>
 ```
@@ -107,29 +113,25 @@ It takes the following props
 Would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg,Brooklyn,NY&zoom=13&size=400x400&markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?center=Williamsburg,Brooklyn,NY&zoom=13&size=400x400&markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&key=YOUR_API_KEY"
+/>
 ```
 
 ```jsx
 <StaticGoogleMap size="600x600">
   <Marker iconURL="https://goo.gl/1oTJ9Y" location="Canberra+ACT" />
-  <Marker
-    anchor="topleft"
-    iconURL="http://tinyurl.com/jrhlvu6"
-    location="Melbourne+VIC"
-  />
-  <Marker
-    anchor="32,10"
-    iconURL="https://goo.gl/5y3S82"
-    location="Melbourne+VIC"
-  />
+  <Marker anchor="topleft" iconURL="http://tinyurl.com/jrhlvu6" location="Melbourne+VIC" />
+  <Marker anchor="32,10" iconURL="https://goo.gl/5y3S82" location="Melbourne+VIC" />
 </StaticGoogleMap>
 ```
 
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://goo.gl/1oTJ9Y%7CCanberra+ACT&markers=size:normal%7Canchor:topleft%7Cicon:http://tinyurl.com/jrhlvu6%7CMelbourne+VIC&markers=size:normal%7Canchor:32,10%7Cicon:https://goo.gl/5y3S82%7CMelbourne+VIC&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://goo.gl/1oTJ9Y%7CCanberra+ACT&markers=size:normal%7Canchor:topleft%7Cicon:http://tinyurl.com/jrhlvu6%7CMelbourne+VIC&markers=size:normal%7Canchor:32,10%7Cicon:https://goo.gl/5y3S82%7CMelbourne+VIC&key=YOUR_API_KEY"
+/>
 ```
 
 ### Marker.Group
@@ -151,12 +153,15 @@ This component removes all other props expect `location` from its children.
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C224+West+20th+Street+NY%7C75+9th+Ave+NY%7C700+E+9th+St+NY&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&markers=size:normal%7Cicon:https://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7C224+West+20th+Street+NY%7C75+9th+Ave+NY%7C700+E+9th+St+NY&key=YOUR_API_KEY"
+/>
 ```
 
 ## Path Component
+
 ```js
-import { Path } from 'react-static-google-map'
+import { Path } from "react-static-google-map";
 ```
 
 The path component allows you render [paths](https://developers.google.com/maps/documentation/static-maps/intro#Paths) on the image
@@ -169,8 +174,8 @@ It takes the following props
 - `geodesic` - (optional) indicates that the requested path should be interpreted as a geodesic line that follows the curvature of the earth. When false, the path is rendered as a straight line in screen space. Defaults to false.
 - `points` - (required) In order to draw a path, the path prop must be passed two or more points. The Google Static Maps API will then connect the path along those points, in the specified order.
 
-
 ### Examples
+
 ```jsx
 <StaticGoogleMap size="600x600">
   <Path
@@ -178,7 +183,7 @@ It takes the following props
     weight="5"
     points={[
       { lat: 40.737102, lng: -73.990318 },
-      '40.749825,-73.987963',
+      "40.749825,-73.987963",
       { lat: 40.752946, lng: -73.987384 },
       { lat: 40.755823, lng: -73.986397 },
     ]}
@@ -189,10 +194,13 @@ It takes the following props
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0xff0000ff%7Cweight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0xff0000ff%7Cweight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397&key=YOUR_API_KEY"
+/>
 ```
 
 You can also render encoded polyline paths
+
 ```jsx
 <StaticGoogleMap scale="2" zoom="4" size="600x600">
   <Path
@@ -205,10 +213,13 @@ You can also render encoded polyline paths
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&zoom=4&scale=2&format=png&maptype=roadmap&path=weight:6%7Cenc:_fisIp~u%7CU}%7Ca@pytA_~b@hhCyhS~hResU%7C%7Cx@oig@rwg@amUfbjA}f[roaAynd@%7CvXxiAt{ZwdUfbjAewYrqGchH~vXkqnAria@c_o@inc@k{g@i`]o%7CF}vXaj\h`]ovs@?yi_@rcAgtO%7Cj_AyaJren@nzQrst@zuYh`]v%7CGbldEuzd@%7C%7Cx@spD%7CtrAzwP%7Cd_@yiB~vXmlWhdPez\_{Km_`@~re@ew^rcAeu_@zhyByjPrst@ttGren@aeNhoFemKrvdAuvVidPwbVr~j@or@f_z@ftHr{ZlwBrvdAmtHrmT{rOt{Zz}E%7Cc%7C@o%7CLpn~AgfRpxqBfoVz_iAocAhrVjr@rh~@jzKhjp@``NrfQpcHrb^k%7CDh_z@nwB%7Ckb@a{R%7Cyh@uyZ%7CllByuZpzw@wbd@rh~@%7C%7CFhqs@teTztrAupHhyY}t]huf@e%7CFria@o}GfezAkdW%7C}[ocMt_Neq@ren@e~Ika@pgE%7Ci%7CAfiQ%7C`l@uoJrvdAgq@fppAsjGhg`@%7ChQpg{Ai_V%7C%7Cx@mkHhyYsdP%7CxeA~gF%7C}[mv`@t_NitSfjp@c}Mhg`@sbChyYq}e@rwg@atFff}@ghN~zKybk@fl}A}cPftcAite@tmT__Lha@u~DrfQi}MhkSqyWivIumCria@ciO_tHifm@fl}A{rc@fbjAqvg@rrqAcjCf%7Ci@mqJtb^s%7C@fbjA{wDfs`BmvEfqs@umWt_Nwn^pen@qiBr`xAcvMr{Zidg@dtjDkbM%7Cd_@&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&zoom=4&scale=2&format=png&maptype=roadmap&path=weight:6%7Cenc:_fisIp~u%7CU}%7Ca@pytA_~b@hhCyhS~hResU%7C%7Cx@oig@rwg@amUfbjA}f[roaAynd@%7CvXxiAt{ZwdUfbjAewYrqGchH~vXkqnAria@c_o@inc@k{g@i`]o%7CF}vXaj\h`]ovs@?yi_@rcAgtO%7Cj_AyaJren@nzQrst@zuYh`]v%7CGbldEuzd@%7C%7Cx@spD%7CtrAzwP%7Cd_@yiB~vXmlWhdPez\_{Km_`@~re@ew^rcAeu_@zhyByjPrst@ttGren@aeNhoFemKrvdAuvVidPwbVr~j@or@f_z@ftHr{ZlwBrvdAmtHrmT{rOt{Zz}E%7Cc%7C@o%7CLpn~AgfRpxqBfoVz_iAocAhrVjr@rh~@jzKhjp@``NrfQpcHrb^k%7CDh_z@nwB%7Ckb@a{R%7Cyh@uyZ%7CllByuZpzw@wbd@rh~@%7C%7CFhqs@teTztrAupHhyY}t]huf@e%7CFria@o}GfezAkdW%7C}[ocMt_Neq@ren@e~Ika@pgE%7Ci%7CAfiQ%7C`l@uoJrvdAgq@fppAsjGhg`@%7ChQpg{Ai_V%7C%7Cx@mkHhyYsdP%7CxeA~gF%7C}[mv`@t_NitSfjp@c}Mhg`@sbChyYq}e@rwg@atFff}@ghN~zKybk@fl}A}cPftcAite@tmT__Lha@u~DrfQi}MhkSqyWivIumCria@ciO_tHifm@fl}A{rc@fbjAqvg@rrqAcjCf%7Ci@mqJtb^s%7C@fbjA{wDfs`BmvEfqs@umWt_Nwn^pen@qiBr`xAcvMr{Zidg@dtjDkbM%7Cd_@&key=YOUR_API_KEY"
+/>
 ```
 
 ### Path.Group
+
 There is also a `Path.Group` component that renders different paths with the same style
 
 This component removes all other props expect `points` from its children.
@@ -227,13 +238,15 @@ This component removes all other props expect `points` from its children.
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0x00000000%7Cweight:5%7Cfillcolor:0xFFFF0033%7C8th+Avenue+%26+34th+St,New+York,NY%7C8th+Avenue+%26+42nd+St,New+York,NY%7CPark+Ave+%26+42nd+St,New+York,NY,NY%7CPark+Ave+%26+34th+St,New+York,NY,NY&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&path=color:0x00000000%7Cweight:5%7Cfillcolor:0xFFFF0033%7C8th+Avenue+%26+34th+St,New+York,NY%7C8th+Avenue+%26+42nd+St,New+York,NY%7CPark+Ave+%26+42nd+St,New+York,NY,NY%7CPark+Ave+%26+34th+St,New+York,NY,NY&key=YOUR_API_KEY"
+/>
 ```
 
-
 ## Direction Component
+
 ```js
-import { Direction } from 'react-static-google-map';
+import { Direction } from "react-static-google-map";
 ```
 
 This is a syntatic sugar around the [Path Component](#path-component) that uses the [Google Directions API](https://developers.google.com/maps/documentation/directions/intro) to render a Path on the map.
@@ -244,7 +257,7 @@ Add `<script src="https://maps.googleapis.com/maps/api/js?key="></script>` to yo
 
 It takes the following props as well as props from [Path Component](#path-component)
 
-- `origin` -  (required) specifies the start location from which to calculate directions. This value may be specified as a String (for example, "Chicago, IL"), as a LatLng value
+- `origin` - (required) specifies the start location from which to calculate directions. This value may be specified as a String (for example, "Chicago, IL"), as a LatLng value
 - `destination` - (required) specifies the end location to which to calculate directions. The options are the same as for the origin field described above.
 - `travelMode` - (optional) specifies what mode of transport to use when calculating directions. Valid values are `driving (Default), bicycling, transit, and WALKING`
 - `requestStrategy` - (optional) A function that takes origin, destination, and travelMode as parameters and returns a string promise of the encoded polyline path to draw on the map.
@@ -255,23 +268,22 @@ Also see the `cache` and `onCacheUpdate` props on the `StaticGoogleMap` componen
 
 ```jsx
 <StaticGoogleMap size="600x400">
-  <Direction
-    origin="6.503296599999999,3.3589658"
-    destination="6.6142085,3.3580775000000003"
-  />
+  <Direction origin="6.503296599999999,3.3589658" destination="6.6142085,3.3580775000000003" />
 </StaticGoogleMap>
 ```
 
 would render
 
 ```html
-<img src="https://maps.googleapis.com/maps/api/staticmap?size=600x400&scale=1&format=png&maptype=roadmap&path=weight:5%7Cenc:eduf@i`oSa@pAoAzEc@~A[v@k@j@sA`A]`@{@k@e@OkASkDk@cEs@eG_AoAIk@@qBNw@@WCsEaAmBe@D]RiAhAgFRg@Zm@Z_@r@k@`@_@V_@Rc@|@uFh@eEHm@Fi@BKQAoAUoD}@kCm@iBYK?MBG@{GsAmHcBsDu@aCm@}@Y_Ac@w@e@aBuAwBqBkA}@YMs@[SGu@GwB?kGFoH@eIByOHmKLuPDsH@ui@^_NH}PL{QFqVJ{NLsGDqDFiIAcOJwKFuGD_E?}DI{E]eD_@_Ca@yCo@}C}@yAi@cCcAmDgByCkBkQgLuCmBsNgJwE}CmD}B{ViPsH}EeG_EkHwE{GqEeDuBc@YIi@{AcAYy@AWF[La@RQXMRE`@?d@LZVFNJ^@^Qv@UPe@\e@\iAz@eExCcD|BmCnB_@N]`@Ub@g@`@uA`AsOxKmFvD{EjDeJtGyAfAmBtAV^jCcBnByApBwA|EqDv@i@^Kb@Yh@Yx@URARBNHbArAzAnBj@v@J\GNUTqChBeFvDqCnBmEdCyBlAq@^{JrGeG`EuHpE]RaCtAwExC}OdJaJpFiC|An@nANb@@ZHLZWZOLG\CJBRDRLTVpCjE\l@fAfBbAfBx@pAbBpC|BnD_EhDcG~Ee@[UWi@i@XSKMQa@l@g@QW&key=YOUR_API_KEY">
+<img
+  src="https://maps.googleapis.com/maps/api/staticmap?size=600x400&scale=1&format=png&maptype=roadmap&path=weight:5%7Cenc:eduf@i`oSa@pAoAzEc@~A[v@k@j@sA`A]`@{@k@e@OkASkDk@cEs@eG_AoAIk@@qBNw@@WCsEaAmBe@D]RiAhAgFRg@Zm@Z_@r@k@`@_@V_@Rc@|@uFh@eEHm@Fi@BKQAoAUoD}@kCm@iBYK?MBG@{GsAmHcBsDu@aCm@}@Y_Ac@w@e@aBuAwBqBkA}@YMs@[SGu@GwB?kGFoH@eIByOHmKLuPDsH@ui@^_NH}PL{QFqVJ{NLsGDqDFiIAcOJwKFuGD_E?}DI{E]eD_@_Ca@yCo@}C}@yAi@cCcAmDgByCkBkQgLuCmBsNgJwE}CmD}B{ViPsH}EeG_EkHwE{GqEeDuBc@YIi@{AcAYy@AWF[La@RQXMRE`@?d@LZVFNJ^@^Qv@UPe@\e@\iAz@eExCcD|BmCnB_@N]`@Ub@g@`@uA`AsOxKmFvD{EjDeJtGyAfAmBtAV^jCcBnByApBwA|EqDv@i@^Kb@Yh@Yx@URARBNHbArAzAnBj@v@J\GNUTqChBeFvDqCnBmEdCyBlAq@^{JrGeG`EuHpE]RaCtAwExC}OdJaJpFiC|An@nANb@@ZHLZWZOLG\CJBRDRLTVpCjE\l@fAfBbAfBx@pAbBpC|BnD_EhDcG~Ee@[UWi@i@XSKMQa@l@g@QW&key=YOUR_API_KEY"
+/>
 ```
 
-
 ## Static Google Map
+
 ```js
-  import { StaticGoogleMap } from 'react-static-google-map'
+import { StaticGoogleMap } from "react-static-google-map";
 ```
 
 This is the container component all other components should be rendered in.

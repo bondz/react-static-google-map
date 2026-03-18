@@ -1,16 +1,24 @@
-function nativeStrategy(data) {
+import type { RequestStrategyOptions, LatLng } from "../../types";
+
+declare const google: any;
+
+function nativeStrategy(data: RequestStrategyOptions): Promise<string> {
   const { origin, destination, travelMode } = data;
 
-  let originLocation;
-  let destinationLocation;
+  let originLocation: unknown;
+  let destinationLocation: unknown;
 
-  if (typeof origin === 'object' && origin.lat && origin.lng) {
+  if (typeof origin === "object" && (origin as LatLng).lat && (origin as LatLng).lng) {
     originLocation = new google.maps.LatLng(origin);
   } else {
     originLocation = origin;
   }
 
-  if (typeof destination === 'object' && destination.lat && destination.lng) {
+  if (
+    typeof destination === "object" &&
+    (destination as LatLng).lat &&
+    (destination as LatLng).lng
+  ) {
     destinationLocation = new google.maps.LatLng(destination);
   } else {
     destinationLocation = destination;
@@ -24,13 +32,13 @@ function nativeStrategy(data) {
         destination: destinationLocation,
         travelMode: travelMode.toUpperCase(),
       },
-      (result, status) => {
+      (result: any, status: string) => {
         if (status === google.maps.DirectionsStatus.OK) {
           resolve(result.routes[0].overview_polyline);
         }
 
         reject(status);
-      }
+      },
     );
   });
 }
