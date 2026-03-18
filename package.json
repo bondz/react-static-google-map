@@ -33,10 +33,6 @@
     }
   },
   "scripts": {
-    "prepublishOnly": "vp pack",
-    "postpublish": "git push origin --all; git push origin --tags",
-    "postversion": "npm publish",
-    "preversion": "vp test",
     "prepare": "vp config"
   },
   "dependencies": {
