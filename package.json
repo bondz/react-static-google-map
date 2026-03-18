@@ -1,6 +1,6 @@
 {
   "name": "react-static-google-map",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Reusable react component to load Google Static map images in your react app",
   "keywords": [
     "google map",
